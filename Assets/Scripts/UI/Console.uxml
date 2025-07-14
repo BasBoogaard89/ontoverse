@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIElements.uss?fileID=7433441132597879392&amp;guid=b97d2e79d155c2b47927cabc27ebc7fd&amp;type=3#UIElements" />
+    <Style src="project://database/Assets/UI/Console.uss?fileID=7433441132597879392&amp;guid=1be6dff0ee0dea442a75b315b46a068b&amp;type=3#Console" />
+    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" mouse-wheel-scroll-size="300" name="ScrollView" />
+</ui:UXML>

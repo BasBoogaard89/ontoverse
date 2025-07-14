@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIElements.uss?fileID=7433441132597879392&amp;guid=b97d2e79d155c2b47927cabc27ebc7fd&amp;type=3#UIElements" />
+    <Style src="project://database/Assets/UI/UserConsole.uss?fileID=7433441132597879392&amp;guid=95e85d5c025d67743b98a106404ead40&amp;type=3#UserConsole" />
+    <ui:GroupBox>
+        <ui:VisualElement name="autocomplete-holder" class="autocomplete-holder">
+            <ui:TextField picking-mode="Ignore" value="Enter a command..." name="command-input" class="command-input" />
+            <ui:VisualElement name="autocomplete-list" class="autocomplete-list">
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="Run" parse-escape-sequences="true" display-tooltip-when-elided="true" name="run-button" />
+    </ui:GroupBox>
+</ui:UXML>

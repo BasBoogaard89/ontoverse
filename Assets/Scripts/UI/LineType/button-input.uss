@@ -1,0 +1,10 @@
+GroupBox {
+	flex-direction: row;
+    align-items: flex-start;
+    margin: 0px;
+	margin-left: 9px;
+}
+
+GroupBox Button {
+	margin-right: 20px;
+	margin-bottom: 20px;

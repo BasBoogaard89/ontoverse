@@ -1,0 +1,76 @@
+:root {
+    --color-bg: rgb(0, 31, 31);
+    --color-fg: rgb(0, 255, 240);
+    --color-fg-alt: rgb(255, 255, 255);
+    --color-border: rgb(0, 255, 240);
+    --color-border-alt: rgb(0, 255, 204);
+    --color-hover: rgb(0, 51, 51);
+    --color-active: rgb(0, 112, 112);
+    --font: resource('Fonts/retraconsole/RetraConsole');
+    --font-definition: resource('Fonts/retraconsole/RetraConsole SDF 1');
+}
+
+Button {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-size: 16px;
+    border-width: 1px;
+    border-color: var(--color-fg);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0;
+    -unity-text-align: middle-center;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+    -unity-font: var(--font);
+    -unity-font-definition: var(--font-definition);
+}
+
+Button:hover {
+    background-color: var(--color-hover);
+}
+
+Button:active {
+    background-color: var(--color-active);
+    border-color: var(--color-border-alt);
+    color: var(--color-fg-alt);
+}
+
+TextField {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-size: 16px;
+    border-width: 1px;
+    border-color: var(--color-border);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0;
+    -unity-font: var(--font);
+    -unity-font-definition: var(--font-definition);
+}
+
+TextField:hover {
+    background-color: var(--color-hover);
+}
+
+TextField:focus {
+    background-color: var(--color-active);
+    border-color: var(--color-border-alt);
+    color: var(--color-fg-alt);
+}
+
+#unity-text-input {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+Label {
+    color: var(--color-fg);
+    font-size: 16px;
+    margin: 0;
+    padding: 10px;
+    -unity-font: var(--font);
+    -unity-font-definition: var(--font-definition);
+}

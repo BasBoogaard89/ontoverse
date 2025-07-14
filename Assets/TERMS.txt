@@ -1,0 +1,3 @@
+﻿Star System = Directory
+Planet = Node
+Ship = Corpus

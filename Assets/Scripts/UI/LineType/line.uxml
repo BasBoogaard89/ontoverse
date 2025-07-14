@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIElements.uss?fileID=7433441132597879392&amp;guid=b97d2e79d155c2b47927cabc27ebc7fd&amp;type=3#UIElements" />
+    <Style src="project://database/Assets/UI/SystemConsole.uss?fileID=7433441132597879392&amp;guid=1be6dff0ee0dea442a75b315b46a068b&amp;type=3#SystemConsole" />
+    <ui:VisualElement name="terminal-line" class="terminal-line">
+        <ui:Label tabindex="-1" text="LogType" parse-escape-sequences="true" display-tooltip-when-elided="true" name="log-type" class="log-type" style="flex-shrink: 2;" />
+        <ui:Label tabindex="-1" text="LogText" parse-escape-sequences="true" display-tooltip-when-elided="true" name="log-text" class="log-text" />
+    </ui:VisualElement>
+</ui:UXML>

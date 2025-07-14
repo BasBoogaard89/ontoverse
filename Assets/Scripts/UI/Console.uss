@@ -1,0 +1,29 @@
+.terminal-line {
+    flex-grow: 1;
+    flex-direction: row;
+    overflow: visible;
+    flex-wrap: nowrap;
+    white-space: normal;
+    text-overflow: ellipsis;
+    align-items: flex-start;
+    flex-shrink: 0;
+    width: auto;
+}
+
+.terminal-line Label {
+    padding-top: 5;
+    padding-bottom: 5px;
+    color: #fff;
+}
+
+.log-text {
+    flex-wrap: wrap;
+    overflow: hidden;
+    white-space: normal;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-shrink: 2;
+}
+
+ScrollView #unity-content-container {
+}
