@@ -7,9 +7,6 @@
             <ui:DropdownField name="dialogueDropdown" />
             <ui:Button name="saveButton" text="Save As" />
 
-            <ui:Label text="Graph Actions" class="header" />
-            <ui:Button name="addNodeButton" text="Add Node" />
-
             <ui:VisualElement name="nodeProperties" class="section">
                 <ui:Label text="Node Properties" class="header" />
                 <ui:Label text="No node selected" name="noSelectionLabel" />

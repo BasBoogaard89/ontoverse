@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class DialogueNode
 {
     public string Id;
-    public DialogueStep Step;
+    public BaseStep Step;
     public List<string> NextNodeIds = new();
     public float PositionX;
     public float PositionY;
@@ -18,12 +17,10 @@ public class DialogueNode
     public DialogueNode()
     {
         Id = Guid.NewGuid().ToString();
-        Step = new DialogueStep(EDialogueStepType.None);
     }
 
     public DialogueNode(string id)
     {
         Id = id;
-        Step = new DialogueStep(EDialogueStepType.None);
     }
 }

@@ -9,7 +9,7 @@ public class DialogueEditor : EditorWindow
 {
     private VisualElement root, sidebar, canvas;
     private DropdownField dialogueDropdown;
-    private Button saveDialogueButton, addNodeButton;
+    private Button saveDialogueButton;
     private Label noSelectionLabel;
     private VisualElement nodeForm, inputOptions, buttonsList;
     private Button addButton;
@@ -20,7 +20,7 @@ public class DialogueEditor : EditorWindow
     private FloatField delayField, charDelayField;
     private Toggle clearBeforeToggle;
 
-    private ToolbarFormBinder binder;
+    private FormBinder binder;
     private NodeView selectedNode;
 
     private NodeGraphService graphService;
@@ -72,7 +72,6 @@ public class DialogueEditor : EditorWindow
 
         dialogueDropdown = root.Q<DropdownField>("dialogueDropdown");
         saveDialogueButton = root.Q<Button>("saveButton");
-        addNodeButton = root.Q<Button>("addNodeButton");
 
         noSelectionLabel = root.Q<Label>("noSelectionLabel");
         nodeForm = root.Q<VisualElement>("nodeForm");
@@ -116,7 +115,6 @@ public class DialogueEditor : EditorWindow
         });
 
         saveDialogueButton.clicked += SaveDialogue;
-        addNodeButton.clicked += () => graphService.AddNode(new Vector2(100 + graphService.nodes.Count * 30, 100));
     }
 
     private void TrySwitchDialogue(string newValue, Action<bool> onDecision)
@@ -145,99 +143,99 @@ public class DialogueEditor : EditorWindow
 
     void SelectNode(NodeView node)
     {
-        binder?.UnbindAll();
+        //binder?.UnbindAll();
 
-        selectedNode = node;
+        //selectedNode = node;
 
-        noSelectionLabel.SetDisplay(false);
-        nodeForm.SetDisplay(true);
-        inputOptions.SetDisplay(false);
-        buttonsList.Clear();
-        addButton.SetDisplay(false);
+        //noSelectionLabel.SetDisplay(false);
+        //nodeForm.SetDisplay(true);
+        //inputOptions.SetDisplay(false);
+        //buttonsList.Clear();
+        //addButton.SetDisplay(false);
 
-        addButton.clicked -= AddButtonToSelected;
-        commandTypeField.UnregisterValueChangedCallback(UpdateCommandType);
+        //addButton.clicked -= AddButtonToSelected;
+        //commandTypeField.UnregisterValueChangedCallback(UpdateCommandType);
 
-        var step = node.Model.Step;
-        binder = new ToolbarFormBinder(
-            () => SelectNode(node),
-            () => hasUnsavedChanges = true
-        );
+        //var step = node.Node.Step;
+        //binder = new FormBinder(
+        //    () => SelectNode(node),
+        //    () => hasUnsavedChanges = true
+        //);
 
-        binder.Bind(nodeTextField, () => step.Text, v => step.Text = v);
-        binder.Bind(stepTypeField, () => step.StepType, v => step.StepType = v);
-        binder.Bind(logTypeField, () => step.LogType, v => step.LogType = v);
-        binder.Bind(delayField, () => step.Delay, v => step.Delay = v);
-        binder.Bind(charDelayField, () => step.CharacterDelay, v => step.CharacterDelay = v);
-        binder.Bind(clearBeforeToggle, () => step.ClearBefore, v => step.ClearBefore = v);
-        binder.Bind(requiresInputToggle, () => step.RequiresUserInput, v => step.RequiresUserInput = v, inputOptions);
-        binder.Bind(waitForCommandToggle, () => step.WaitForCommand, v => step.WaitForCommand = v, commandTypeField);
-        binder.Bind(presentButtonsToggle, () => step.PresentButtons, v => step.PresentButtons = v, buttonsList);
-        binder.Bind(commandTypeField, () => step.CommandType, v => step.CommandType = v);
+        //binder.Bind(nodeTextField, () => step.Text, v => step.Text = v);
+        //binder.Bind(stepTypeField, () => step.StepType, v => step.StepType = v);
+        //binder.Bind(logTypeField, () => step.LogType, v => step.LogType = v);
+        //binder.Bind(delayField, () => step.Delay, v => step.Delay = v);
+        //binder.Bind(charDelayField, () => step.CharacterDelay, v => step.CharacterDelay = v);
+        //binder.Bind(clearBeforeToggle, () => step.ClearBefore, v => step.ClearBefore = v);
+        //binder.Bind(requiresInputToggle, () => step.RequiresUserInput, v => step.RequiresUserInput = v, inputOptions);
+        //binder.Bind(waitForCommandToggle, () => step.WaitForCommand, v => step.WaitForCommand = v, commandTypeField);
+        //binder.Bind(presentButtonsToggle, () => step.PresentButtons, v => step.PresentButtons = v, buttonsList);
+        //binder.Bind(commandTypeField, () => step.CommandType, v => step.CommandType = v);
 
-        // Buttons
-        buttonsList.Clear();
-        if (step.PresentButtons)
-        {
-            for (int i = 0; i < step.Buttons.Count; i++)
-            {
-                int index = i;
-                var btn = step.Buttons[i];
+        //// Buttons
+        //buttonsList.Clear();
+        //if (step.PresentButtons)
+        //{
+        //    for (int i = 0; i < step.Buttons.Count; i++)
+        //    {
+        //        int index = i;
+        //        var btn = step.Buttons[i];
 
-                var container = new VisualElement { style = { flexDirection = FlexDirection.Row } };
+        //        var container = new VisualElement { style = { flexDirection = FlexDirection.Row } };
 
-                var labelField = new TextField { value = btn.Label };
-                labelField.RegisterValueChangedCallback(evt => {
-                    btn.Label = evt.newValue;
-                    hasUnsavedChanges = true;
-                });
-                container.Add(labelField);
+        //        var labelField = new TextField { value = btn.Label };
+        //        labelField.RegisterValueChangedCallback(evt => {
+        //            btn.Label = evt.newValue;
+        //            hasUnsavedChanges = true;
+        //        });
+        //        container.Add(labelField);
 
-                var removeBtn = new Button(() =>
-                {
-                    step.Buttons.RemoveAt(index);
-                    SelectNode(node);
-                    hasUnsavedChanges = true;
-                })
-                { text = "X" };
-                container.Add(removeBtn);
+        //        var removeBtn = new Button(() =>
+        //        {
+        //            step.Buttons.RemoveAt(index);
+        //            SelectNode(node);
+        //            hasUnsavedChanges = true;
+        //        })
+        //        { text = "X" };
+        //        container.Add(removeBtn);
 
-                var linkBtn = new Button(() =>
-                {
-                    graphService.linkingFrom = node;
-                    node.Model.Step.SelectedButtonIndex = index;
-                })
-                { text = "Out" };
-                container.Add(linkBtn);
+        //        var linkBtn = new Button(() =>
+        //        {
+        //            graphService.linkingFrom = node;
+        //            node.Node.Step.SelectedButtonIndex = index;
+        //        })
+        //        { text = "Out" };
+        //        container.Add(linkBtn);
 
-                buttonsList.Add(container);
-            }
+        //        buttonsList.Add(container);
+        //    }
 
-            addButton.SetDisplay(true);
-        } else
-        {
-            addButton.SetDisplay(false);
-        }
+        //    addButton.SetDisplay(true);
+        //} else
+        //{
+        //    addButton.SetDisplay(false);
+        //}
 
-        addButton.clicked -= AddButtonToSelected;
-        addButton.clicked += AddButtonToSelected;
+        //addButton.clicked -= AddButtonToSelected;
+        //addButton.clicked += AddButtonToSelected;
     }
 
     void UpdateCommandType(ChangeEvent<Enum> evt)
     {
-        if (selectedNode?.Model.Step != null)
-            selectedNode.Model.Step.CommandType = (ECommandType)evt.newValue;
+        //if (selectedNode?.Node.Step != null)
+        //    selectedNode.Node.Step.CommandType = (ECommandType)evt.newValue;
     }
 
     void AddButtonToSelected()
     {
-        if (selectedNode?.Model.Step != null)
-        {
-            selectedNode.Model.Step.Buttons.Add(new DialogueButtonData($"Option {selectedNode.Model.Step.Buttons.Count}"));
-            SelectNode(selectedNode);
+        //if (selectedNode?.Node.Step != null)
+        //{
+        //    selectedNode.Node.Step.Buttons.Add(new ButtonData($"Option {selectedNode.Node.Step.Buttons.Count}"));
+        //    SelectNode(selectedNode);
 
-            hasUnsavedChanges = true;
-        }
+        //    hasUnsavedChanges = true;
+        //}
     }
 
     void LoadDialogueList()

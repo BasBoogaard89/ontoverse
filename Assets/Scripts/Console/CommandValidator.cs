@@ -13,12 +13,13 @@ public class CommandValidator
         //_validators[ECommandType.Exit] = cmd => cmd.Equals("exit", StringComparison.OrdinalIgnoreCase);
     }
 
-    public bool Validate(string cmd, DialogueStep step)
+    public bool Validate(string cmd, TypeStep step)
     {
-        if (!validators.TryGetValue(step.CommandType, out var rule))
-            return false;
+        //if (!validators.TryGetValue(step.CommandType, out var rule))
+        //    return false;
 
-        return rule(cmd);
+        //return rule(cmd);
+        return true;
     }
 
     public void AddCustomRule(ECommandType type, Func<string, bool> rule)

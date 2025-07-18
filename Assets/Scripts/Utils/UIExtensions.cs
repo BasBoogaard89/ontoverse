@@ -18,7 +18,7 @@ public static class UIExtensions
         return Regex.Replace(input, "<.*?>", string.Empty);
     }
 
-    public static string GetDialogueStepTerminalPrefix(DialogueStep step)
+    public static string GetDialogueStepTerminalPrefix(TypeStep step)
     {
         var prefix = step.LogType switch
         {

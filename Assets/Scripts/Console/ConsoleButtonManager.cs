@@ -21,7 +21,7 @@ public class ConsoleButtonManager : MonoBehaviour
         buttonContainer = buttonElement.Q<VisualElement>("button-container");
     }
 
-    public void ShowButtons(List<DialogueButtonData> buttons)
+    public void ShowButtons(List<ButtonData> buttons)
     {
         if (buttonElement.parent != null)
             buttonElement.RemoveFromHierarchy();

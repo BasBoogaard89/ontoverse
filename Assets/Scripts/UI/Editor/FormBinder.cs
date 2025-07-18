@@ -1,17 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine.UIElements;
 
-public class ToolbarFormBinder
+public class FormBinder
 {
     private Action redrawUI;
     private readonly Action onChange;
     private List<Action> unbindActions = new();
 
-    public ToolbarFormBinder(Action redrawUI = null, Action onChange = null)
+    public FormBinder(Action redrawUI = null, Action onChange = null)
     {
         this.redrawUI = redrawUI;
         this.onChange = onChange;
+    }
+
+    void AutoBindFields(VisualElement root, object target)
+    {
+        var fields = target.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+
+        foreach (var field in fields)
+        {
+            var element = UQueryExtensions.Q<VisualElement>(root, field.Name, (string)null);
+            if (element == null)
+                continue;
+
+            if (field.FieldType == typeof(string) && element is TextField tf)
+            {
+                tf.value = (string)field.GetValue(target);
+                tf.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+            } else if (field.FieldType == typeof(bool) && element is Toggle toggle)
+            {
+                toggle.value = (bool)field.GetValue(target);
+                toggle.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+            } else if (field.FieldType == typeof(float) && element is FloatField ff)
+            {
+                ff.value = (float)field.GetValue(target);
+                ff.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+            } else if (field.FieldType.IsEnum && element is EnumField ef)
+            {
+                ef.Init((Enum)field.GetValue(target));
+                ef.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+            }
+        }
     }
 
     public void Bind(TextField field, Func<string> getter, Action<string> setter)

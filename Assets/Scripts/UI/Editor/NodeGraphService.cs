@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -32,8 +33,8 @@ public class NodeGraphService
 
         foreach (var nodeData in graph.Nodes)
         {
-            var view = AddNode(nodeData.Position);
-            view.Model = nodeData;
+            var view = AddNodeView(nodeData.Position);
+            view.Node = nodeData;
             idToNodeView[nodeData.Id] = view;
         }
 
@@ -54,7 +55,7 @@ public class NodeGraphService
         canvas.MarkDirtyRepaint();
     }
 
-    public NodeView AddNode(Vector2 position)
+    public NodeView AddNodeView(Vector2 position)
     {
         var nodeModel = new DialogueNode();
         var view = new NodeView(nodeModel, onPositionChanged);
@@ -66,6 +67,14 @@ public class NodeGraphService
         nodes.Add(view);
         canvas.Add(view);
         view.SetPosition(position);
+
+        return view;
+    }
+
+    public NodeView AddNodeView(Vector2 position, BaseStep step)
+    {
+        var view = AddNodeView(position);
+        view.Node.Step = step;
 
         return view;
     }
@@ -117,7 +126,7 @@ public class NodeGraphService
 
     public List<DialogueNode> Export()
     {
-        return nodes.Select(n => n.Model).ToList();
+        return nodes.Select(n => n.Node).ToList();
     }
 
     public void Clear()
@@ -168,6 +177,44 @@ public class NodeGraphService
             isPanning = false;
             canvas.ReleaseMouse();
         }
+
+        if (evt.button == 1)
+        {
+            Vector2 clickPos = canvas.WorldToLocal(evt.originalMousePosition);
+            ShowStepSelectionMenu(clickPos);
+            return;
+        }
+
+        if (linkingFrom != null && evt.button == 0)
+        {
+            Vector2 releasePos = canvas.WorldToLocal(evt.originalMousePosition);
+            ShowStepSelectionMenu(releasePos);
+        }
     }
 
+    public void ShowStepSelectionMenu(Vector2 position)
+    {
+        var menu = new GenericMenu();
+
+        foreach (var kv in StepFactory.Step)
+        {
+            string stepName = kv.Key.ToString();
+            menu.AddItem(new GUIContent(stepName), false, () =>
+            {
+                var step = kv.Value.Invoke();
+                var node = AddNodeView(position, step);
+
+                if (linkingFrom != null)
+                {
+                    connections.Add((linkingFrom, node));
+                    linkingFrom = null;
+                    onPositionChanged?.Invoke();
+                }
+
+                canvas.MarkDirtyRepaint();
+            });
+        }
+
+        menu.ShowAsContext();
+    }
 }

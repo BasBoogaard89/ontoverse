@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System;
 
-[Serializable]
 public class DialogueGraph
 {
     public List<DialogueNode> Nodes = new();

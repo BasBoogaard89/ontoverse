@@ -1,13 +1,12 @@
 ﻿using System;
 
-[Serializable]
-public class DialogueButtonData
+public class ButtonData
 {
     public string Id;
     public string Label;
     public string TargetNodeId;
 
-    public DialogueButtonData(string label)
+    public ButtonData(string label)
     {
         Id = Guid.NewGuid().ToString();
         Label = label;

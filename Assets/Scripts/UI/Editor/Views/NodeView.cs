@@ -9,15 +9,15 @@ public class NodeView : VisualElement
     public Action<NodeView> OnCompleteLink;
     public Action<NodeView> OnSelected;
 
-    public DialogueNode Model;
+    public DialogueNode Node;
 
-    private VisualElement input;
-    private VisualElement output;
+    private VisualElement input, output;
+    private Label title;
 
-    public NodeView(DialogueNode model, Action onPositionChanged)
+    public NodeView(DialogueNode node, Action onPositionChanged)
     {
-        Model = model;
-        Model.Step ??= new DialogueStep(EDialogueStepType.None);
+        Node = node;
+        Node.Step ??= new TypeStep(EDisplayType.Type);
 
         var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(
             "Assets/Scripts/UI/Editor/Views/NodeView.uxml"
@@ -29,10 +29,11 @@ public class NodeView : VisualElement
         );
         styleSheets.Add(styleSheet);
 
-        SetPosition(Model.Position);
+        SetPosition(Node.Position);
 
-        input = this.Q<Button>("input");
-        output = this.Q<Button>("output");
+        input = this.Q("input");
+        output = this.Q("output");
+        title = this.Q<Label>("title");
 
         input.RegisterCallback<ClickEvent>(_ => OnCompleteLink?.Invoke(this));
         output.RegisterCallback<ClickEvent>(_ => OnStartLink?.Invoke(this));
@@ -42,7 +43,7 @@ public class NodeView : VisualElement
         input.RegisterCallback<MouseOutEvent>(_ => input.RemoveClass("over"));
         output.RegisterCallback<MouseOutEvent>(_ => output.RemoveClass("over"));
 
-        this.AddManipulator(new NodeDragManipulator(onPositionChanged));
+        this.AddManipulator(new NodeEvents(onPositionChanged));
 
         RegisterCallback<MouseDownEvent>(evt =>
         {
@@ -50,6 +51,7 @@ public class NodeView : VisualElement
             {
                 evt.StopPropagation();
                 OnSelected?.Invoke(this);
+                title.text = Node.Step.StepType.ToString();
             }
         });
     }
@@ -58,8 +60,8 @@ public class NodeView : VisualElement
     {
         style.left = pos.x;
         style.top = pos.y;
-        Model.PositionX = pos.x;
-        Model.PositionY = pos.y;
+        Node.PositionX = pos.x;
+        Node.PositionY = pos.y;
     }
 
     public Vector2 GetInputPosition(VisualElement canvas) =>

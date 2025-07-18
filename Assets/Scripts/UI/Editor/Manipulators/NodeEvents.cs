@@ -2,12 +2,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class NodeDragManipulator : PointerManipulator
+public class NodeEvents : PointerManipulator
 {
     private bool dragging;
     private readonly Action onDragComplete;
 
-    public NodeDragManipulator(Action onDragComplete)
+    public NodeEvents(Action onDragComplete)
     {
         this.onDragComplete = onDragComplete;
     }
