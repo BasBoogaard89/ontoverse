@@ -14,48 +14,54 @@ public class ConsoleController : MonoBehaviour
     DialogueFlowController flow;
     CommandValidator validator = new();
 
-    //void Start()
-    //{
-    //    typer = GetComponent<ConsoleTyper>();
-    //    inputManager = GetComponent<ConsoleInputManager>();
-    //    buttonManager = GetComponent<ConsoleButtonManager>();
+    void Start()
+    {
+        typer = GetComponent<ConsoleTyper>();
+        inputManager = GetComponent<ConsoleInputManager>();
+        buttonManager = GetComponent<ConsoleButtonManager>();
 
-    //    inputManager.OnCommandSubmitted += HandleCommand;
-    //    buttonManager.OnButtonSelected += HandleButton;
+        inputManager.OnCommandSubmitted += HandleCommand;
+        buttonManager.OnButtonSelected += HandleButton;
 
-    //    DialogueGraph graph = JsonUtility.FromJson<DialogueGraph>(defaultDialogueJson.text);
-    //    flow = new DialogueFlowController(graph);
+        DialogueGraph graph = JsonCompressor.Deserialize<DialogueGraph>(defaultDialogueJson.text);
+        flow = new DialogueFlowController(graph);
 
-    //    flow.OnTextOutput += typer.PrintLine;
-    //    flow.OnButtonsPresented += (buttons) =>
-    //    {
-    //        buttonManager.ShowButtons(buttons);
-    //        typer.ScrollToBottom();
-    //    };
-    //    flow.OnCommandRequired += () =>
-    //    {
-    //        inputManager.ShowInput();
-    //        typer.ScrollToBottom();
-    //    };
+        flow.OnStepOutput += HandleStep;
+        flow.OnButtonsPresented += (buttons) =>
+        {
+            buttonManager.ShowButtons(buttons);
+            typer.ScrollToBottom();
+        };
+        flow.OnCommandRequired += () =>
+        {
+            inputManager.ShowInput();
+            typer.ScrollToBottom();
+        };
 
-    //    typer.OnStepComplete += flow.NotifyStepFinished;
+        typer.OnStepComplete += flow.NotifyStepFinished;
 
-    //    flow.StartFlow();
-    //}
+        flow.StartFlow();
+    }
 
-    //void HandleCommand(string cmd)
-    //{
-    //    typer.PrintUserLine(cmd);
+    void HandleCommand(string cmd)
+    {
+        typer.PrintUserLine(cmd);
 
-    //    bool valid = validator.Validate(cmd, flow.currentNode.Step);
+        bool valid = validator.Validate(cmd, (CommandStep)flow.CurrentNode.Step);
 
-    //    flow.ResumeFlow(valid); 
-    //}
+        flow.ResumeFlow(valid);
+    }
 
-    //void HandleButton(int index)
-    //{
-    //    string label = flow.currentNode.Step.Buttons[index].Label;
-    //    typer.PrintUserLine(label);
-    //    flow.SelectButton(index);
-    //}
+    void HandleButton(int index)
+    {
+        string label = ((ButtonStep)flow.CurrentNode.Step).Buttons[index].Label;
+        typer.PrintUserLine(label);
+        flow.SelectButton(index);
+    }
+
+    void HandleStep(BaseStep step)
+    {
+        if (step is TypeStep ts)
+            typer.PrintLine(ts);
+    }
 }

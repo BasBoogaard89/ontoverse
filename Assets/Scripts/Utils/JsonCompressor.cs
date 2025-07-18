@@ -5,14 +5,23 @@ using System.Text;
 
 public static class JsonCompressor
 {
-    public static string Serialize(object obj, bool pretty = false)
+    static JsonSerializerSettings JsonSerializerSettings(bool pretty)
     {
-        return JsonConvert.SerializeObject(obj, pretty ? Formatting.Indented : Formatting.None);
+        return new JsonSerializerSettings
+        {
+            Converters = { new DialogueStepConverter() },
+            Formatting = pretty ? Formatting.Indented : Formatting.None
+        };
+    }
+
+    public static string Serialize(object obj, bool pretty = true)
+    {
+        return JsonConvert.SerializeObject(obj, JsonSerializerSettings(pretty));
     }
 
     public static T Deserialize<T>(string json)
     {
-        return JsonConvert.DeserializeObject<T>(json);
+        return JsonConvert.DeserializeObject<T>(json, JsonSerializerSettings(false));
     }
 
     public static byte[] CompressString(string text)

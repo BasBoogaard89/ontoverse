@@ -25,20 +25,6 @@ GroupBox {
     color: white;
 }
 
-.section {
-    margin-top: 20px;
-}
-
-.form > * {
-    margin-bottom: 5px;
-}
-
-.buttons-list > * {
-    margin-bottom: 2px;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .canvas {
     flex-grow: 1;
 }

@@ -1,15 +1,27 @@
 .node {
     position: absolute;
-    width: 160px;
-    height: 100px;
+    width: 200px;
+    height: 80px;
     background-color: rgb(51, 51, 64);
     border-width: 1px;
     border-color: white;
     border-radius: 4px;
 }
 
+.node-type {
+    height: 250px;
+}
+
+.node-button {
+    height: 200px;
+}
+
+.entry-node {
+    border-color: gold;
+}
+
 .node-title {
-    text-align: center;
+    -unity-text-align: center;
     margin-top: 5px;
     align-self: center;
 }
@@ -34,6 +46,55 @@
     background-image: url("project://database/Assets/Textures/hook.png?fileID=2800000&amp;guid=0f5eca6d74f98fa4e865c0c710875b81&amp;type=3#hook"); 
 }
 
-#input.over #icon, #output.over #icon {
+#input.hover #icon, #output.hover #icon {
     background-color: cyan;
+}
+
+.form-container {
+    margin-top: 10px;
+    flex-grow: 1;
+}
+.form-container Label {
+    padding: 0px;
+    min-width: 75px;
+}
+
+TextField {
+    max-height: 100px;
+    overflow: scroll;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+TextField > .unity-text-input {
+    -unity-text-align: upper-left;
+    height: 100%;
+    flex-grow: 1;
+    align-self: stretch;
+}
+
+.button-row {
+    flex-direction: row;
+}
+
+.button-row > TextField {
+    flex-grow: 1;
+}
+
+#delete, #entry-toggle {
+    position: absolute;
+    border-width: 0px;
+    bottom: 0px;
+    padding: 3px;
+    font-size: 12px;
+}
+
+#delete {
+    background-color: #550000;
+    right: 0px;
+    color: #fff;
+}
+
+#entry-toggle {
+    left: 0px;
 }

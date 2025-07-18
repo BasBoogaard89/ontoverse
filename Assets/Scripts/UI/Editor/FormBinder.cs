@@ -15,32 +15,36 @@ public class FormBinder
         this.onChange = onChange;
     }
 
-    void AutoBindFields(VisualElement root, object target)
+    public void AutoBindFields(VisualElement root, object target)
     {
         var fields = target.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
 
         foreach (var field in fields)
         {
-            var element = UQueryExtensions.Q<VisualElement>(root, field.Name, (string)null);
+            var element = root.Q<VisualElement>(field.Name);
             if (element == null)
                 continue;
 
             if (field.FieldType == typeof(string) && element is TextField tf)
             {
-                tf.value = (string)field.GetValue(target);
-                tf.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+                Bind(tf,
+                    () => (string)field.GetValue(target),
+                    v => field.SetValue(target, v));
             } else if (field.FieldType == typeof(bool) && element is Toggle toggle)
             {
-                toggle.value = (bool)field.GetValue(target);
-                toggle.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+                Bind(toggle,
+                    () => (bool)field.GetValue(target),
+                    v => field.SetValue(target, v));
             } else if (field.FieldType == typeof(float) && element is FloatField ff)
             {
-                ff.value = (float)field.GetValue(target);
-                ff.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+                Bind(ff,
+                    () => (float)field.GetValue(target),
+                    v => field.SetValue(target, v));
             } else if (field.FieldType.IsEnum && element is EnumField ef)
             {
-                ef.Init((Enum)field.GetValue(target));
-                ef.RegisterValueChangedCallback(evt => field.SetValue(target, evt.newValue));
+                Bind(ef,
+                    () => (Enum)field.GetValue(target),
+                    v => field.SetValue(target, v));
             }
         }
     }

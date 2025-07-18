@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement>
+        <ui:EnumField label="Display type" name="DisplayType" type="EDisplayType, Assembly-CSharp" />
+        <ui:EnumField label="Log type" name="LogType" type="ELogType, Assembly-CSharp" />
+        <ui:FloatField label="Character delay" name="CharacterDelay" />
+        <ui:Label text="Text" />
+        <ui:TextField name="Text" select-all-on-mouse-up="false" select-all-on-focus="false" multiline="true" class="textarea" />
+    </ui:VisualElement>
+</ui:UXML>

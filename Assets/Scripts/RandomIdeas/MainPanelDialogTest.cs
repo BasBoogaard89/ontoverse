@@ -55,14 +55,14 @@ public class MainPanelDialogTest
     }
 
     void HasEnabledUserConsole()
-    {  
+    {
         //Typer.EnqueueSequence(new TerminalSequence(new List<DialogueStep>
         //{
         //    new(EDialogueStepType.Type, $"Awesome! Type `help` and press {WrapInTag("[Enter]")} or click {WrapInTag("[Run command]")}.", 0f, 0f, logType: ELogType.Input),
         //}));
     }
 
-    private string WrapInTag(string text) 
+    private string WrapInTag(string text)
     {
         return $"<color=#ffff00>{text}</color>";
     }

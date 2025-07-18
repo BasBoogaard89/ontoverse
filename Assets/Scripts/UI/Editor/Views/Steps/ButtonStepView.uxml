@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button name="addButton" text="Add" />   
+    <ui:VisualElement name="buttonsList">
+        <ui:VisualElement name="buttonRowTemplate" style="display: none;" class="button-row">
+            <ui:TextField name="labelField" />
+            <ui:Button name="linkButton" text="->" />
+            <ui:Button name="removeButton" text="X" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

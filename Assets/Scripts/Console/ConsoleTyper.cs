@@ -29,144 +29,136 @@ public class ConsoleTyper : MonoBehaviour
         scrollContent = scrollView.Q("unity-content-container");
     }
 
-    //public void PrintLine(TypeStep step)
-    //{
-    //    stepQueue.Enqueue(step);
-    //    if (!isRunningSequence)
-    //        StartCoroutine(ProcessSteps());
-    //}
+    public void PrintLine(TypeStep step)
+    {
+        stepQueue.Enqueue(step);
+        if (!isRunningSequence)
+            StartCoroutine(ProcessSteps());
+    }
 
-    //public void PrintUserLine(string text)
-    //{
-    //    PrintLine(new DialogueStep(EStepType.FakeUserInput, text, ELogType.User));
-    //}
+    public void PrintUserLine(string text)
+    {
+        PrintLine(new TypeStep(EDisplayType.UserInput, text, ELogType.User));
+    }
 
-    //public void ScrollToBottom()
-    //{
-    //    scrollView.schedule.Execute(() =>
-    //    {
-    //        scrollView.scrollOffset = new Vector2(0, float.MaxValue);
-    //    }).ExecuteLater(1);
-    //}
+    public void ScrollToBottom()
+    {
+        scrollView.schedule.Execute(() =>
+        {
+            scrollView.scrollOffset = new Vector2(0, float.MaxValue);
+        }).ExecuteLater(1);
+    }
 
-    //IEnumerator ProcessSteps()
-    //{
-    //    isRunningSequence = true;
+    IEnumerator ProcessSteps()
+    {
+        isRunningSequence = true;
 
-    //    while (stepQueue.Count > 0)
-    //    {
-    //        var step = stepQueue.Dequeue();
+        while (stepQueue.Count > 0)
+        {
+            var step = stepQueue.Dequeue();
 
-    //        if (step.ClearBefore)
-    //            scrollContent.Clear();
+            switch (step.DisplayType)
+            {
+                case EDisplayType.Type:
+                    yield return StartCoroutine(TypeLine(step));
+                    break;
+                case EDisplayType.UserInput:
+                    yield return StartCoroutine(TypeLine(step, ">"));
+                    break;
+                case EDisplayType.Prompt:
+                    yield return StartCoroutine(StartWithPrompt(step));
+                    break;
+            }
+        }
 
-    //        if (enableDelays && step.Delay > 0)
-    //            yield return new WaitForSeconds(step.Delay);
+        isRunningSequence = false;
+        OnTyperComplete?.Invoke();
+        OnStepComplete?.Invoke();
+    }
 
-    //        switch (step.StepType)
-    //        {
-    //            case EStepType.Type:
-    //                yield return StartCoroutine(TypeLine(step));
-    //                break;
-    //            case EStepType.FakeUserInput:
-    //                yield return StartCoroutine(TypeLine(step, ">"));
-    //                break;
-    //            case EStepType.Prompt:
-    //                yield return StartCoroutine(StartWithPrompt(step));
-    //                break;
-    //            case EStepType.Wait:
-    //                break;
-    //        }
-    //    }
+    IEnumerator TypeLine(TypeStep step, string prefix = null)
+    {
+        var line = AddLineFromStep(step, prefix);
+        var textLabel = line.Q<Label>(LogTextClass);
 
-    //    isRunningSequence = false;
-    //    OnTyperComplete?.Invoke();
-    //    OnStepComplete?.Invoke();
-    //}
+        if (step.CharacterDelay <= 0f || !enableDelays)
+        {
+            textLabel.text += step.Text;
+        } else
+        {
+            for (int i = 0; i < step.Text.Length; i++)
+            {
+                textLabel.text += step.Text[i];
+                yield return new WaitForSeconds(step.CharacterDelay);
+            }
+        }
 
-    //IEnumerator TypeLine(TypeStep step, string prefix = null)
-    //{
-    //    var line = AddLineFromStep(step, prefix);
-    //    var textLabel = line.Q<Label>(LogTextClass);
+        ScrollToBottom();
+    }
 
-    //    if (step.CharacterDelay <= 0f || !enableDelays)
-    //    {
-    //        textLabel.text += step.Text;
-    //    } else
-    //    {
-    //        for (int i = 0; i < step.Text.Length; i++)
-    //        {
-    //            textLabel.text += step.Text[i];
-    //            yield return new WaitForSeconds(step.CharacterDelay);
-    //        }
-    //    }
+    IEnumerator StartWithPrompt(TypeStep step, string prompt = "C:\\>", int blinkCount = 3, float blinkSpeed = 0.3f)
+    {
+        var line = AddLineFromStep(step);
+        var textLabel = line.Q<Label>(LogTextClass);
 
-    //    ScrollToBottom();
-    //}
+        for (int i = 0; i < blinkCount * 2; i++)
+        {
+            textLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) + prompt + (i % 2 == 0 ? "█" : " ");
+            yield return new WaitForSeconds(blinkSpeed);
+        }
 
-    //IEnumerator StartWithPrompt(TypeStep step, string prompt = "C:\\>", int blinkCount = 3, float blinkSpeed = 0.3f)
-    //{
-    //    var line = AddLineFromStep(step);
-    //    var textLabel = line.Q<Label>(LogTextClass);
+        textLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) + prompt;
+        yield return StartCoroutine(TypeOnExistingLabel(textLabel, step.Text, step.CharacterDelay));
+    }
 
-    //    for (int i = 0; i < blinkCount * 2; i++)
-    //    {
-    //        textLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) + prompt + (i % 2 == 0 ? "█" : " ");
-    //        yield return new WaitForSeconds(blinkSpeed);
-    //    }
+    IEnumerator TypeOnExistingLabel(Label label, string content, float characterDelay)
+    {
+        for (int i = 0; i < content.Length; i++)
+        {
+            label.text += content[i];
+            yield return new WaitForSeconds(characterDelay);
+        }
 
-    //    textLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) + prompt;
-    //    yield return StartCoroutine(TypeOnExistingLabel(textLabel, step.Text, step.CharacterDelay));
-    //}
+        ScrollToBottom();
+    }
 
-    //IEnumerator TypeOnExistingLabel(Label label, string content, float characterDelay)
-    //{
-    //    for (int i = 0; i < content.Length; i++)
-    //    {
-    //        label.text += content[i];
-    //        yield return new WaitForSeconds(characterDelay);
-    //    }
+    VisualElement AddLineFromStep(TypeStep step, string prefix = null)
+    {
+        var line = lineTemplate.Instantiate();
+        var typeLabel = line.Q<Label>(LogTypeClass);
+        var textLabel = line.Q<Label>(LogTextClass);
 
-    //    ScrollToBottom();
-    //}
+        if (step.LogType == ELogType.None || step.LogType == ELogType.User)
+            typeLabel.style.display = DisplayStyle.None;
+        else
+        {
+            typeLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) +
+                             UIExtensions.GetDialogueStepTerminalPrefix(step);
+            typeLabel.style.display = DisplayStyle.Flex;
+        }
 
-    //VisualElement AddLineFromStep(TypeStep step, string prefix = null)
-    //{
-    //    var line = lineTemplate.Instantiate();
-    //    var typeLabel = line.Q<Label>(LogTypeClass);
-    //    var textLabel = line.Q<Label>(LogTextClass);
+        textLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) + (prefix ?? "");
 
-    //    if (step.LogType == ELogType.None || step.LogType == ELogType.User)
-    //        typeLabel.style.display = DisplayStyle.None;
-    //    else
-    //    {
-    //        typeLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) +
-    //                         UIExtensions.GetDialogueStepTerminalPrefix(step);
-    //        typeLabel.style.display = DisplayStyle.Flex;
-    //    }
+        if (step.LogType == ELogType.Input || step.StepType == EStepType.Type && step.DisplayType == EDisplayType.UserInput)
+        {
+            ResetActiveInputLine();
+            activeInputLine = line;
+        }
 
-    //    textLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) + (prefix ?? "");
+        scrollContent.Add(line);
+        return line;
+    }
 
-    //    if (step.LogType == ELogType.Input || step.StepType == EStepType.FakeUserInput)
-    //    {
-    //        ResetActiveInputLine();
-    //        activeInputLine = line;
-    //    }
+    void ResetActiveInputLine()
+    {
+        if (activeInputLine == null) return;
 
-    //    scrollContent.Add(line);
-    //    return line;
-    //}
+        var typeLabel = activeInputLine.Q<Label>(LogTypeClass);
+        var textLabel = activeInputLine.Q<Label>(LogTextClass);
 
-    //void ResetActiveInputLine()
-    //{
-    //    if (activeInputLine == null) return;
+        if (typeLabel != null) typeLabel.text = UIExtensions.StripRichText(typeLabel.text);
+        if (textLabel != null) textLabel.text = UIExtensions.StripRichText(textLabel.text);
 
-    //    var typeLabel = activeInputLine.Q<Label>(LogTypeClass);
-    //    var textLabel = activeInputLine.Q<Label>(LogTextClass);
-
-    //    if (typeLabel != null) typeLabel.text = UIExtensions.StripRichText(typeLabel.text);
-    //    if (textLabel != null) textLabel.text = UIExtensions.StripRichText(textLabel.text);
-
-    //    activeInputLine = null;
-    //}
+        activeInputLine = null;
+    }
 }

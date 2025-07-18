@@ -1,6 +1,4 @@
-﻿using System;
-
-public class VFile
+﻿public class VFile
 {
     public string Name;
     public string Content;

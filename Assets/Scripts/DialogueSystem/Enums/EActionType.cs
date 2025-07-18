@@ -1,0 +1,4 @@
+public enum EActionType
+{
+    ExplodeUniverse
+}

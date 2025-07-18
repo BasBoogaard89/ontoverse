@@ -2,7 +2,7 @@
 {
     private static readonly string[] Verbs = {
         "Geëxperimenteerd met", "Testen van", "Testen met", "Simuleren van", "Simuleren met", "Kalibreren van",
-        "Agressief geprikt in", "Agressief schudden van", "Analyseren van", "Omgekeerd ontwerpen van", 
+        "Agressief geprikt in", "Agressief schudden van", "Analyseren van", "Omgekeerd ontwerpen van",
         "Quantum-geknuffeld met", "Overgeklokken van", "Met AI aan het stoeien geweest over",
         "Per ongeluk geactiveerd:", "Vibecoden van", "Vibecoden met",
         "Herprogrammeren van", "Vertalen van", "Met opzet in de war geschopte", "Gedebugd met",

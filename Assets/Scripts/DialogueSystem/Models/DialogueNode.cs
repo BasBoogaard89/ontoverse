@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueNode
 {
     public string Id;
     public BaseStep Step;
-    public List<string> NextNodeIds = new();
+    public string NextNodeId;
     public float PositionX;
     public float PositionY;
 
