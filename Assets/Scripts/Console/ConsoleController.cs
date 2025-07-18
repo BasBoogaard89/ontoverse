@@ -45,7 +45,7 @@ public class ConsoleController : MonoBehaviour
 
     void HandleCommand(string cmd)
     {
-        PrintUserLine(cmd);
+        typer.PrintUserLine(cmd);
 
         bool valid = validator.Validate(cmd, flow.currentNode.Step);
 
@@ -55,12 +55,7 @@ public class ConsoleController : MonoBehaviour
     void HandleButton(int index)
     {
         string label = flow.currentNode.Step.Buttons[index].Label;
-        PrintUserLine(label);
+        typer.PrintUserLine(label);
         flow.SelectButton(index);
-    }
-
-    void PrintUserLine(string text)
-    {
-        typer.PrintLine(new DialogueStep(EDialogueStepType.FakeUserInput, text, ELogType.User));
     }
 }

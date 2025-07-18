@@ -40,4 +40,9 @@ public static class UIExtensions
             _ => "<color=#ffffff>"
         };
     }
+
+    public static void SetDisplay(this VisualElement ve, bool visible)
+    {
+        ve.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+    }
 }

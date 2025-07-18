@@ -1,5 +1,48 @@
-.custom-label {
-    font-size: 20px;
-    -unity-font-style: bold;
-    color: rgb(68, 138, 255);
+:root {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+GroupBox {
+    margin: 0px;
+    padding: 0px;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.sidebar {
+    background-color: #424242;
+    flex-direction: column;
+    width: 350px;
+    padding: 10px;
+}
+
+.header {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.form > * {
+    margin-bottom: 5px;
+}
+
+.buttons-list > * {
+    margin-bottom: 2px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.canvas {
+    flex-grow: 1;
+}
+
+Label {
+    padding-left: 4px;
 }

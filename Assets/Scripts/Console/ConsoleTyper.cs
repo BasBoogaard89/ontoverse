@@ -36,6 +36,11 @@ public class ConsoleTyper : MonoBehaviour
             StartCoroutine(ProcessSteps());
     }
 
+    public void PrintUserLine(string text)
+    {
+        PrintLine(new DialogueStep(EDialogueStepType.FakeUserInput, text, ELogType.User));
+    }
+
     public void ScrollToBottom()
     {
         scrollView.schedule.Execute(() =>

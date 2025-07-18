@@ -1,12 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
->
-    <Style src="project://database/Assets/UI/Tools/DialogueEditor.uss?fileID=7433441132597879392&amp;guid=cfb77c8affe27b346ac87ca4695b59cc&amp;type=3#DialogueEditor" />
-	<ui:Label text="Hello World! From UXML" />
-	<ui:Label class="custom-label" text="Hello World! With Style" />
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/Editor/DialogueEditor.uss?fileID=7433441132597879392&amp;guid=cfb77c8affe27b346ac87ca4695b59cc&amp;type=3#DialogueEditor" />
+    <ui:GroupBox class="GroupBox">
+        <ui:VisualElement name="sidebar" class="sidebar">
 
+            <ui:Label text="Dialogue Files" class="header" />
+            <ui:DropdownField name="dialogueDropdown" />
+            <ui:Button name="saveButton" text="Save As" />
+
+            <ui:Label text="Graph Actions" class="header" />
+            <ui:Button name="addNodeButton" text="Add Node" />
+
+            <ui:VisualElement name="nodeProperties" class="section">
+                <ui:Label text="Node Properties" class="header" />
+                <ui:Label text="No node selected" name="noSelectionLabel" />
+
+                <ui:VisualElement name="nodeForm" class="form" style="display: none;">
+                    <ui:Label text="Text:" />
+                    <ui:TextField name="nodeText" multiline="true" />
+
+                    <ui:EnumField name="stepType" label="Action" />
+                    <ui:EnumField name="logType" label="Log Type" />
+                    <ui:FloatField name="delayField" label="Delay" />
+                    <ui:FloatField name="charDelayField" label="Char Delay" />
+                    <ui:Toggle name="clearBeforeToggle" label="Clear Before" />
+
+                    <ui:Toggle name="requiresInputToggle" label="Requires Input" />
+
+                    <ui:VisualElement name="inputOptions" style="display: none;">
+                        <ui:Toggle name="waitForCommandToggle" label="Wait For Command" />
+                        <ui:Toggle name="presentButtonsToggle" label="Show Buttons" />
+                        <ui:EnumField name="commandTypeField" label="Command Type" style="display: none;" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="buttonsList" class="buttons-list" style="display: none;" />
+                    <ui:Button name="addButton" text="Add Button" style="display: none;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement name="canvas" class="canvas" />
+    </ui:GroupBox>
 </ui:UXML>

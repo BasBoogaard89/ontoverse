@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class DialogueStep
+public class DialogueStep : BaseStep
 {
     public EDialogueStepType StepType;
     public ELogType LogType;
@@ -17,6 +17,7 @@ public class DialogueStep
     public bool PresentButtons;
     public List<DialogueButtonData> Buttons = new();
 
+    [NonSerialized]
     public int SelectedButtonIndex = -1;
 
     public DialogueStep(EDialogueStepType type, string text = "", ELogType logType = ELogType.None)

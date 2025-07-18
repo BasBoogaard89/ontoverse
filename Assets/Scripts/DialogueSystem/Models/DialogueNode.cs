@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -8,20 +9,21 @@ public class DialogueNode
     public string Id;
     public DialogueStep Step;
     public List<string> NextNodeIds = new();
-    public bool IsCollapsed = false;
+    public float PositionX;
+    public float PositionY;
 
-    [NonSerialized] public Rect Rect;
-    public Vector2 Position => Rect.position;
+    [JsonIgnore]
+    public Vector2 Position => new(PositionX, PositionY);
 
-    public DialogueNode(string id, Rect rect)
+    public DialogueNode()
     {
-        Id = id;
-        Rect = rect;
+        Id = Guid.NewGuid().ToString();
         Step = new DialogueStep(EDialogueStepType.None);
     }
 
-    public void Drag(Vector2 delta)
+    public DialogueNode(string id)
     {
-        Rect.position += delta;
+        Id = id;
+        Step = new DialogueStep(EDialogueStepType.None);
     }
 }

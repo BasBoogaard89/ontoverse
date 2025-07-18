@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/Editor/Views/NodeView.uss?fileID=7433441132597879392&amp;guid=9fb32a9d27e2bfa4f999515eeb4bb839&amp;type=3#NodeView" />
+    <ui:VisualElement class="node">
+        <ui:Label name="title" text="Node" class="node-title" />
+        <ui:Button name="input">
+            <ui:VisualElement name="icon" />
+        </ui:Button>
+        <ui:Button name="output">
+            <ui:VisualElement name="icon" />
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>
