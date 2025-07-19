@@ -199,8 +199,9 @@ public class ConsoleInputManager : MonoBehaviour
         suggestionItems[selectedIndex].AddToClassList("highlight");
     }
 
-    void Hide()
+    public void Hide()
     {
+        Debug.Log("Hide");
         if (inputElement?.parent != null)
             inputElement.RemoveFromHierarchy();
     }

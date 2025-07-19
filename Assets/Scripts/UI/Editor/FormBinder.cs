@@ -15,36 +15,45 @@ public class FormBinder
         this.onChange = onChange;
     }
 
-    public void AutoBindFields(VisualElement root, object target)
+    public void AutoBindFields(VisualElement root, object target, string prefix = "")
     {
         var fields = target.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
 
         foreach (var field in fields)
         {
-            var element = root.Q<VisualElement>(field.Name);
-            if (element == null)
-                continue;
+            string fullName = string.IsNullOrEmpty(prefix) ? field.Name : $"{prefix}.{field.Name}";
+            var element = root.Q<VisualElement>(fullName);
 
-            if (field.FieldType == typeof(string) && element is TextField tf)
+            if (element != null)
             {
-                Bind(tf,
-                    () => (string)field.GetValue(target),
-                    v => field.SetValue(target, v));
-            } else if (field.FieldType == typeof(bool) && element is Toggle toggle)
+                if (field.FieldType == typeof(string) && element is TextField tf)
+                {
+                    Bind(tf,
+                        () => (string)field.GetValue(target),
+                        v => field.SetValue(target, v));
+                } else if (field.FieldType == typeof(bool) && element is Toggle toggle)
+                {
+                    Bind(toggle,
+                        () => (bool)field.GetValue(target),
+                        v => field.SetValue(target, v));
+                } else if (field.FieldType == typeof(float) && element is FloatField ff)
+                {
+                    Bind(ff,
+                        () => (float)field.GetValue(target),
+                        v => field.SetValue(target, v));
+                } else if (field.FieldType.IsEnum && element is EnumField ef)
+                {
+                    Bind(ef,
+                        () => (Enum)field.GetValue(target),
+                        v => field.SetValue(target, v));
+                }
+            } else if (!field.FieldType.IsPrimitive && !field.FieldType.IsEnum && !field.FieldType.IsArray && !field.FieldType.IsGenericType)
             {
-                Bind(toggle,
-                    () => (bool)field.GetValue(target),
-                    v => field.SetValue(target, v));
-            } else if (field.FieldType == typeof(float) && element is FloatField ff)
-            {
-                Bind(ff,
-                    () => (float)field.GetValue(target),
-                    v => field.SetValue(target, v));
-            } else if (field.FieldType.IsEnum && element is EnumField ef)
-            {
-                Bind(ef,
-                    () => (Enum)field.GetValue(target),
-                    v => field.SetValue(target, v));
+                var subTarget = field.GetValue(target);
+                if (subTarget != null)
+                {
+                    AutoBindFields(root, subTarget, fullName);
+                }
             }
         }
     }

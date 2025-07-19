@@ -1,1 +1,239 @@
-{"Nodes":[{"Id":"d3105ee5-7c37-4afa-8197-a1116fb5e4eb","Step":{"StepType":4,"LogType":3,"Text":"./ontoverse.exe","Delay":1.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["3a036eb5-ac0a-4052-bd63-a42bf7424d56"],"Position":{"x":501.0,"y":308.0},"IsCollapsed":false},{"Id":"3a036eb5-ac0a-4052-bd63-a42bf7424d56","Step":{"StepType":2,"LogType":0,"Text":"","Delay":1.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["c1246c48-ac6f-45f5-908a-372cef022151"],"Position":{"x":810.0,"y":309.0},"IsCollapsed":false},{"Id":"c1246c48-ac6f-45f5-908a-372cef022151","Step":{"StepType":1,"LogType":1,"Text":"Booting kernel modules...","Delay":0.0,"CharacterDelay":0.0,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["3b5a8f10-44fb-48b7-ae13-e2e5e413bef3"],"Position":{"x":1126.0,"y":308.0},"IsCollapsed":false},{"Id":"3b5a8f10-44fb-48b7-ae13-e2e5e413bef3","Step":{"StepType":1,"LogType":1,"Text":"Loading assets...","Delay":0.25,"CharacterDelay":0.0,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["b97e2b26-a030-490f-a80c-74f491006c73"],"Position":{"x":1445.0,"y":306.0},"IsCollapsed":false},{"Id":"b97e2b26-a030-490f-a80c-74f491006c73","Step":{"StepType":1,"LogType":1,"Text":"Loading data...","Delay":0.25,"CharacterDelay":0.0,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["3e70fae1-0f40-4820-a720-0c715bad9d4d"],"Position":{"x":1758.0,"y":305.0},"IsCollapsed":false},{"Id":"3e70fae1-0f40-4820-a720-0c715bad9d4d","Step":{"StepType":2,"LogType":0,"Text":"","Delay":1.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["f005b743-1b77-498b-8eee-bae058e75866"],"Position":{"x":2080.0,"y":307.0},"IsCollapsed":false},{"Id":"f005b743-1b77-498b-8eee-bae058e75866","Step":{"StepType":1,"LogType":0,"Text":"\r\n=======================================\r\n<size=8px>\r\n ██████  ███    ██ ████████  ██████  ██    ██ ███████ ██████  ███████ ███████ \r\n██    ██ ████   ██    ██    ██    ██ ██    ██ ██      ██   ██ ██      ██      \r\n██    ██ ██ ██  ██    ██    ██    ██ ██    ██ █████   ██████  ███████ █████   \r\n██    ██ ██  ██ ██    ██    ██    ██  ██  ██  ██      ██   ██      ██ ██      \r\n ██████  ██   ████    ██     ██████    ████   ███████ ██   ██ ███████ ███████ \r\n</size>\r\n=======================================\n\\t\r","Delay":0.0,"CharacterDelay":0.0,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["8b1b9cd7-6ef6-4a8e-81b2-e162ee3a1787"],"Position":{"x":2390.0,"y":305.0},"IsCollapsed":false},{"Id":"8b1b9cd7-6ef6-4a8e-81b2-e162ee3a1787","Step":{"StepType":3,"LogType":3,"Text":"login --user exeistance --pw B1gBitti3sL0ver!","Delay":2.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["6d6f4d2e-29c1-4781-a333-78c16cb7cd90"],"Position":{"x":2697.0,"y":303.0},"IsCollapsed":false},{"Id":"6d6f4d2e-29c1-4781-a333-78c16cb7cd90","Step":{"StepType":1,"LogType":1,"Text":"Access granted","Delay":1.0,"CharacterDelay":0.0,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["632d60f5-6ea4-4965-a26e-f5c0a769f501"],"Position":{"x":3009.0,"y":302.0},"IsCollapsed":false},{"Id":"632d60f5-6ea4-4965-a26e-f5c0a769f501","Step":{"StepType":1,"LogType":1,"Text":"Loading user profile","Delay":3.0,"CharacterDelay":0.0,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["58fda605-8bdc-4722-864f-f1ffda613e89"],"Position":{"x":3321.0,"y":301.0},"IsCollapsed":false},{"Id":"58fda605-8bdc-4722-864f-f1ffda613e89","Step":{"StepType":2,"LogType":0,"Text":"","Delay":3.0,"CharacterDelay":0.0,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":3632.0,"y":302.0},"IsCollapsed":false}],"EntryNodeId":"d3105ee5-7c37-4afa-8197-a1116fb5e4eb"}
+{
+  "Nodes": [
+    {
+      "Id": "4a40be68-1e02-4966-ab67-b4d781ad8a26",
+      "Step": {
+        "DisplayType": 2,
+        "LogType": 3,
+        "Text": "./ontoverse.exe",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 1.0,
+          "CharacterDelay": 0.05,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "60a982f5-9b25-4715-9839-41db8d95506d",
+      "PositionX": -1267.0,
+      "PositionY": 244.0
+    },
+    {
+      "Id": "60a982f5-9b25-4715-9839-41db8d95506d",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 1,
+        "Text": "Booting kernel modules...",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 1.0,
+          "CharacterDelay": 0.0,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "3c754ca8-83e7-458b-8a80-05585db5e3c8",
+      "PositionX": -1057.0,
+      "PositionY": 244.0
+    },
+    {
+      "Id": "3c754ca8-83e7-458b-8a80-05585db5e3c8",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 1,
+        "Text": "Loading assets...",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 0.1,
+          "CharacterDelay": 0.0,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "fb8eb0f4-c3b5-4435-8467-561c665561ad",
+      "PositionX": -843.0,
+      "PositionY": 243.0
+    },
+    {
+      "Id": "fb8eb0f4-c3b5-4435-8467-561c665561ad",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 1,
+        "Text": "Loading data...",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 0.1,
+          "CharacterDelay": 0.0,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "2b557e04-c5b2-4399-888a-befcdc10fc03",
+      "PositionX": -620.0,
+      "PositionY": 243.0
+    },
+    {
+      "Id": "2b557e04-c5b2-4399-888a-befcdc10fc03",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 0,
+        "Text": "\r\n=======================================\r\n<size=8px>\r\n ██████  ███    ██ ████████  ██████  ██    ██ ███████ ██████  ███████ ███████ \r\n██    ██ ████   ██    ██    ██    ██ ██    ██ ██      ██   ██ ██      ██      \r\n██    ██ ██ ██  ██    ██    ██    ██ ██    ██ █████   ██████  ███████ █████   \r\n██    ██ ██  ██ ██    ██    ██    ██  ██  ██  ██      ██   ██      ██ ██      \r\n ██████  ██   ████    ██     ██████    ████   ███████ ██   ██ ███████ ███████ \r\n</size>\r\n=======================================\r\n\r\\t",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 2.0,
+          "CharacterDelay": 0.0,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "26caa895-d21f-43d4-8e71-ef34719804ba",
+      "PositionX": -410.0,
+      "PositionY": 244.0
+    },
+    {
+      "Id": "26caa895-d21f-43d4-8e71-ef34719804ba",
+      "Step": {
+        "DisplayType": 1,
+        "LogType": 3,
+        "Text": "login --user exeistance --pw B1gBitti3sL0ver!",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 2.0,
+          "CharacterDelay": 0.05,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "6ad504b9-24b6-4b08-80db-7b3729066e6b",
+      "PositionX": -193.0,
+      "PositionY": 244.0
+    },
+    {
+      "Id": "6ad504b9-24b6-4b08-80db-7b3729066e6b",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 1,
+        "Text": "Access granted",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 1.0,
+          "CharacterDelay": 0.0,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "f4c034d5-d164-4e08-8165-c3cc672e553d",
+      "PositionX": 20.0,
+      "PositionY": 245.0
+    },
+    {
+      "Id": "f4c034d5-d164-4e08-8165-c3cc672e553d",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 1,
+        "Text": "Loading user profile",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 2.0,
+          "CharacterDelay": 0.0,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "55373af7-3c2d-428d-9820-a8fb84aef904",
+      "PositionX": 230.0,
+      "PositionY": 245.0
+    },
+    {
+      "Id": "84e0742a-6bd1-4c27-9cb7-b6dc27a22b28",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 0,
+        "Text": "danube",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 0.0,
+          "CharacterDelay": 0.05,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
+      "PositionX": 970.0,
+      "PositionY": 256.0
+    },
+    {
+      "Id": "78570f75-4598-4367-8870-420d000e76e9",
+      "Step": {
+        "Buttons": [
+          {
+            "Id": "76f380c4-404c-4977-9790-bfb40afe7b0c",
+            "Label": "baby...",
+            "TargetNodeId": "29a0a0a6-f6d3-4523-8667-b714616ed164"
+          },
+          {
+            "Id": "7dba502b-26ad-40a7-9492-1a55d1648aa2",
+            "Label": "blue...",
+            "TargetNodeId": "84e0742a-6bd1-4c27-9cb7-b6dc27a22b28"
+          },
+          {
+            "Id": "c19f9870-8c50-4667-8036-b1e3305b48e5",
+            "Label": "red gold and",
+            "TargetNodeId": "b5533423-78d7-4803-abbf-cdf3a64ec1dd"
+          }
+        ],
+        "StepType": 2
+      },
+      "NextNodeId": null,
+      "PositionX": 489.0,
+      "PositionY": 259.0
+    },
+    {
+      "Id": "29a0a0a6-f6d3-4523-8667-b714616ed164",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 0,
+        "Text": "shark!",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 0.0,
+          "CharacterDelay": 0.05,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
+      "PositionX": 749.0,
+      "PositionY": -5.0
+    },
+    {
+      "Id": "b5533423-78d7-4803-abbf-cdf3a64ec1dd",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 0,
+        "Text": "green",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 0.0,
+          "CharacterDelay": 0.05,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
+      "PositionX": 771.0,
+      "PositionY": 498.0
+    },
+    {
+      "Id": "55373af7-3c2d-428d-9820-a8fb84aef904",
+      "Step": {
+        "CommandType": 1,
+        "StepType": 3
+      },
+      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
+      "PositionX": 458.0,
+      "PositionY": 651.0
+    }
+  ],
+  "EntryNodeId": "4a40be68-1e02-4966-ab67-b4d781ad8a26"
+}

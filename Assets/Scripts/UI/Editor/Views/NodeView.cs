@@ -114,8 +114,6 @@ public class NodeView : VisualElement
     {
         style.left = pos.x;
         style.top = pos.y;
-        Node.PositionX = pos.x;
-        Node.PositionY = pos.y;
     }
 
     public Vector2 GetInputPosition(VisualElement canvas) =>
@@ -145,5 +143,11 @@ public class NodeView : VisualElement
 
         var linkButton = buttonRows[index].Q<Button>("linkButton");
         return canvas.WorldToLocal(linkButton.worldBound.center);
+    }
+
+    public void SyncNodeData()
+    {
+        Node.PositionX = resolvedStyle.left;
+        Node.PositionY = resolvedStyle.top;
     }
 }

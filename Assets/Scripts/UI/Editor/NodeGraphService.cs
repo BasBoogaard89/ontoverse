@@ -206,6 +206,7 @@ public class NodeGraphService
     {
         foreach (var n in nodes)
             canvas.Remove(n);
+
         nodes.Clear();
         connections.Clear();
     }
@@ -377,5 +378,15 @@ public class NodeGraphService
         canvas.MarkDirtyRepaint();
     }
 
-    public DialogueGraph GetCurrentGraph() => activeGraph;
+    public DialogueGraph ExportGraph()
+    {
+        foreach(var node in nodes)
+            node.SyncNodeData();
+
+        return new DialogueGraph
+        {
+            EntryNodeId = activeGraph.EntryNodeId,
+            Nodes = nodes.Select(n => n.Node).ToList()
+        };
+    }
 }

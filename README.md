@@ -16,6 +16,14 @@
         "ontology",
         "universe",
         "game"
+    ],
+    "todo": [
+        "File System + Editor",
+        "ActionSteps handling"
+    ],
+    "done": [
+        "Dialogue Editor",
+        "Basic UI"
     ]
 }
 ```

@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class ConsoleTyper : MonoBehaviour
 {
     [SerializeField] private VisualTreeAsset lineTemplate;
-    [SerializeField] private bool enableDelays = true;
+    [HideInInspector] public bool enableDelays;
 
     private ScrollView scrollView;
     private VisualElement scrollContent;
@@ -81,7 +81,7 @@ public class ConsoleTyper : MonoBehaviour
         var line = AddLineFromStep(step, prefix);
         var textLabel = line.Q<Label>(LogTextClass);
 
-        if (step.CharacterDelay <= 0f || !enableDelays)
+        if (step.DelayConfig.CharacterDelay <= 0f || !enableDelays)
         {
             textLabel.text += step.Text;
         } else
@@ -89,7 +89,9 @@ public class ConsoleTyper : MonoBehaviour
             for (int i = 0; i < step.Text.Length; i++)
             {
                 textLabel.text += step.Text[i];
-                yield return new WaitForSeconds(step.CharacterDelay);
+
+                if (enableDelays && step.DelayConfig.CharacterDelay > 0f)
+                    yield return new WaitForSeconds(step.DelayConfig.CharacterDelay);
             }
         }
 
@@ -108,7 +110,7 @@ public class ConsoleTyper : MonoBehaviour
         }
 
         textLabel.text = UIExtensions.GetDialogueColorTag(step.LogType) + prompt;
-        yield return StartCoroutine(TypeOnExistingLabel(textLabel, step.Text, step.CharacterDelay));
+        yield return StartCoroutine(TypeOnExistingLabel(textLabel, step.Text, step.DelayConfig.CharacterDelay));
     }
 
     IEnumerator TypeOnExistingLabel(Label label, string content, float characterDelay)
@@ -116,7 +118,9 @@ public class ConsoleTyper : MonoBehaviour
         for (int i = 0; i < content.Length; i++)
         {
             label.text += content[i];
-            yield return new WaitForSeconds(characterDelay);
+
+            if (enableDelays && characterDelay > 0f)
+                yield return new WaitForSeconds(characterDelay);
         }
 
         ScrollToBottom();

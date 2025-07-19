@@ -125,7 +125,7 @@ public class DialogueEditor : EditorWindow
             ? Path.GetFileNameWithoutExtension(dialoguePaths[dialogueDropdown.index])
             : "dialogue";
 
-        var graph = graphService.GetCurrentGraph();
+        var graph = graphService.ExportGraph();
         DialogueFileService.SaveDialogue(graph, defaultName);
 
         LoadDialogueList();

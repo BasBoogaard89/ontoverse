@@ -11,7 +11,7 @@ public class ConsoleButtonManager : MonoBehaviour
     VisualElement buttonContainer;
     VisualElement scrollContent;
 
-    public event Action<int> OnButtonSelected;
+    public event Action<int, string> OnButtonSelected;
 
     void Awake()
     {
@@ -34,7 +34,7 @@ public class ConsoleButtonManager : MonoBehaviour
             int index = i;
             var data = buttons[i];
 
-            var btn = new Button(() => OnButtonClick(index))
+            var btn = new Button(() => OnButtonClick(index, data.Label))
             {
                 text = data.Label
             };
@@ -49,9 +49,9 @@ public class ConsoleButtonManager : MonoBehaviour
             buttonElement.RemoveFromHierarchy();
     }
 
-    void OnButtonClick(int index)
+    void OnButtonClick(int index, string label)
     {
         Hide();
-        OnButtonSelected?.Invoke(index);
+        OnButtonSelected?.Invoke(index, label);
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(ConsoleTyper))]
 [RequireComponent(typeof(ConsoleInputManager))]
@@ -6,62 +7,84 @@
 public class ConsoleController : MonoBehaviour
 {
     [JsonDialogue]
-    [SerializeField] TextAsset defaultDialogueJson;
+    public TextAsset DefaultDialogueJson;
+    public bool EnableDelays = true;
+
     ConsoleTyper typer;
     ConsoleInputManager inputManager;
     ConsoleButtonManager buttonManager;
-
-    DialogueFlowController flow;
-    CommandValidator validator = new();
+    DialogueFlowController flowController;
 
     void Start()
     {
+        InitializeComponents();
+        BindEvents();
+        InitializeDialogueFlow();
+
+        flowController.StartFlow();
+    }
+
+    void InitializeComponents()
+    {
         typer = GetComponent<ConsoleTyper>();
+        typer.enableDelays = EnableDelays;
+
         inputManager = GetComponent<ConsoleInputManager>();
         buttonManager = GetComponent<ConsoleButtonManager>();
-
-        inputManager.OnCommandSubmitted += HandleCommand;
-        buttonManager.OnButtonSelected += HandleButton;
-
-        DialogueGraph graph = JsonCompressor.Deserialize<DialogueGraph>(defaultDialogueJson.text);
-        flow = new DialogueFlowController(graph);
-
-        flow.OnStepOutput += HandleStep;
-        flow.OnButtonsPresented += (buttons) =>
-        {
-            buttonManager.ShowButtons(buttons);
-            typer.ScrollToBottom();
-        };
-        flow.OnCommandRequired += () =>
-        {
-            inputManager.ShowInput();
-            typer.ScrollToBottom();
-        };
-
-        typer.OnStepComplete += flow.NotifyStepFinished;
-
-        flow.StartFlow();
     }
 
-    void HandleCommand(string cmd)
+    void BindEvents()
     {
-        typer.PrintUserLine(cmd);
-
-        bool valid = validator.Validate(cmd, (CommandStep)flow.CurrentNode.Step);
-
-        flow.ResumeFlow(valid);
+        inputManager.OnCommandSubmitted += HandleCommandSubmitted;
+        buttonManager.OnButtonSelected += HandleButtonSelected;
+        typer.OnStepComplete += NotifyStepFinished;
     }
 
-    void HandleButton(int index)
+    void InitializeDialogueFlow()
     {
-        string label = ((ButtonStep)flow.CurrentNode.Step).Buttons[index].Label;
-        typer.PrintUserLine(label);
-        flow.SelectButton(index);
+        DialogueGraph graph = JsonCompressor.Deserialize<DialogueGraph>(DefaultDialogueJson.text);
+        flowController = new DialogueFlowController(graph, this, EnableDelays);
+
+        flowController.OnStepOutput += HandleStepOutput;
+        flowController.OnButtonsPresented += HandleButtonsPresented;
+        flowController.OnCommandRequired += HandleCommandRequired;
+
+        _ = new ActionStepHandler(flowController);
     }
 
-    void HandleStep(BaseStep step)
+    void HandleStepOutput(BaseStep step)
     {
         if (step is TypeStep ts)
             typer.PrintLine(ts);
+    }
+
+    void HandleButtonsPresented(List<ButtonData> buttons)
+    {
+        buttonManager.ShowButtons(buttons);
+        typer.ScrollToBottom();
+    }
+
+    void HandleCommandRequired()
+    {
+        inputManager.ShowInput();
+        typer.ScrollToBottom();
+    }
+
+    void NotifyStepFinished()
+    {
+        flowController.NotifyStepFinished();
+    }
+
+    void HandleCommandSubmitted(string cmd)
+    {
+        typer.PrintUserLine(cmd);
+
+        flowController.SubmitCommand(cmd);
+    }
+
+    void HandleButtonSelected(int index, string label)
+    {
+        typer.PrintUserLine(label);
+        flowController.SelectButton(index);
     }
 }

@@ -1,3 +1,107 @@
-{"Nodes":[],
-    "EntryNodeId": null
+{
+  "Nodes": [
+    {
+      "Id": "8dc14969-d7a4-4440-988d-ead6618a219b",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 0,
+        "Text": "aaaaaaaaaa",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 0.0,
+          "CharacterDelay": 0.05,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "2bf07589-a2af-4046-a4f8-55e0509e92cc",
+      "PositionX": 41.0,
+      "PositionY": 254.0
+    },
+    {
+      "Id": "a9294f68-ed5f-4471-9eff-974422bf3cbd",
+      "Step": {
+        "DisplayType": 0,
+        "LogType": 0,
+        "Text": "Yes!",
+        "OverrideDefaultDelay": false,
+        "DelayConfig": {
+          "DelayBefore": 0.0,
+          "CharacterDelay": 0.0,
+          "DelayAfter": 0.0
+        },
+        "StepType": 0
+      },
+      "NextNodeId": "11ec8603-403b-4fe6-bd54-1a07a60441b8",
+      "PositionX": 1026.0,
+      "PositionY": 350.0
+    },
+    {
+      "Id": "2bf07589-a2af-4046-a4f8-55e0509e92cc",
+      "Step": {
+        "Buttons": [
+          {
+            "Id": "339d49f3-e408-4c2b-aea6-a0b9bc3ca1f7",
+            "Label": "Clear",
+            "TargetNodeId": "f2acffab-1525-43d2-9fd7-ce5cbaec6828"
+          },
+          {
+            "Id": "96edae12-fbed-48a1-9af6-1b8fd0dbcccc",
+            "Label": "List",
+            "TargetNodeId": "d1b94cb5-5ed1-443e-a1a8-bb4102d9238c"
+          },
+          {
+            "Id": "6fe4cfd0-25eb-4e9a-8eea-857232ae4fa7",
+            "Label": "Help",
+            "TargetNodeId": "60e6f386-d8c8-45d5-9e5b-28d9d82e7883"
+          }
+        ],
+        "StepType": 2
+      },
+      "NextNodeId": null,
+      "PositionX": 338.0,
+      "PositionY": 352.0
+    },
+    {
+      "Id": "f2acffab-1525-43d2-9fd7-ce5cbaec6828",
+      "Step": {
+        "CommandType": 3,
+        "StepType": 3
+      },
+      "NextNodeId": "a9294f68-ed5f-4471-9eff-974422bf3cbd",
+      "PositionX": 620.0,
+      "PositionY": 443.0
+    },
+    {
+      "Id": "d1b94cb5-5ed1-443e-a1a8-bb4102d9238c",
+      "Step": {
+        "CommandType": 2,
+        "StepType": 3
+      },
+      "NextNodeId": "a9294f68-ed5f-4471-9eff-974422bf3cbd",
+      "PositionX": 625.0,
+      "PositionY": 583.0
+    },
+    {
+      "Id": "60e6f386-d8c8-45d5-9e5b-28d9d82e7883",
+      "Step": {
+        "CommandType": 1,
+        "StepType": 3
+      },
+      "NextNodeId": "a9294f68-ed5f-4471-9eff-974422bf3cbd",
+      "PositionX": 623.0,
+      "PositionY": 722.0
+    },
+    {
+      "Id": "11ec8603-403b-4fe6-bd54-1a07a60441b8",
+      "Step": {
+        "CommandType": 1,
+        "StepType": 3
+      },
+      "NextNodeId": "a9294f68-ed5f-4471-9eff-974422bf3cbd",
+      "PositionX": 362.0,
+      "PositionY": 114.0
+    }
+  ],
+  "EntryNodeId": "8dc14969-d7a4-4440-988d-ead6618a219b"
 }
