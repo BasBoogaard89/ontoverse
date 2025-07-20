@@ -201,7 +201,6 @@ public class ConsoleInputManager : MonoBehaviour
 
     public void Hide()
     {
-        Debug.Log("Hide");
         if (inputElement?.parent != null)
             inputElement.RemoveFromHierarchy();
     }

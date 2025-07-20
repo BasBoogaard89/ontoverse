@@ -1,1 +1,179 @@
-{"Nodes":[{"Id":"7ad0cdbd-f9fd-4b74-98a8-91da7ccb5d8c","Step":{"StepType":1,"LogType":0,"Text":"test","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":true,"WaitForCommand":true,"CommandType":1,"PresentButtons":false,"Buttons":[{"Id":"97e3b99c-251f-49a9-8b4a-18d6acb07267","Label":"werkt","TargetNodeId":"7fb4bad0-f885-4e95-b4a0-c291dad854ef"},{"Id":"83c2cb9a-8a39-4c2e-bf7c-049e5f167813","Label":"werkt niet","TargetNodeId":"217dd520-ef2f-4551-99ff-1129f07ae07e"}],"SelectedButtonIndex":-1},"NextNodeIds":["be2e28a5-8983-4fc4-a5e9-e05e198e131f"],"Position":{"x":-134.0,"y":361.0},"IsCollapsed":false},{"Id":"7fb4bad0-f885-4e95-b4a0-c291dad854ef","Step":{"StepType":1,"LogType":0,"Text":"Cool!","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["9aa517b7-8cdd-40d2-9db6-95f814bb2d65"],"Position":{"x":1289.0,"y":585.0},"IsCollapsed":false},{"Id":"217dd520-ef2f-4551-99ff-1129f07ae07e","Step":{"StepType":1,"LogType":0,"Text":"minder cool","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":["b32cd3fc-edf9-4549-9298-8820cff36277"],"Position":{"x":281.0,"y":917.0},"IsCollapsed":false},{"Id":"9aa517b7-8cdd-40d2-9db6-95f814bb2d65","Step":{"StepType":1,"LogType":0,"Text":"ragge maar","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":1614.0,"y":456.0},"IsCollapsed":false},{"Id":"b32cd3fc-edf9-4549-9298-8820cff36277","Step":{"StepType":1,"LogType":0,"Text":"kutzooi","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":661.0,"y":1092.0},"IsCollapsed":false},{"Id":"be2e28a5-8983-4fc4-a5e9-e05e198e131f","Step":{"StepType":1,"LogType":0,"Text":"Tried turning it off and on again?","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":true,"WaitForCommand":false,"CommandType":0,"PresentButtons":true,"Buttons":[{"Id":"d773bc4e-7e72-4a89-baa1-00f622ed02ae","Label":"ja","TargetNodeId":"89bfce88-8e49-49ef-bccc-42f19b46603f"},{"Id":"0e291aff-371d-471d-a401-06362c80c76a","Label":"nee","TargetNodeId":"40b2e4be-cf36-45c5-8ae8-f60883fd62c4"}],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":279.0,"y":187.0},"IsCollapsed":false},{"Id":"89bfce88-8e49-49ef-bccc-42f19b46603f","Step":{"StepType":1,"LogType":0,"Text":"zeker?","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":true,"WaitForCommand":false,"CommandType":0,"PresentButtons":true,"Buttons":[{"Id":"e22e4aa2-60c8-4721-9dfa-6a58c4d00180","Label":"yup","TargetNodeId":"387e9dfa-80f5-4422-8b7e-cd2e1766a769"}],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":803.0,"y":211.0},"IsCollapsed":false},{"Id":"40b2e4be-cf36-45c5-8ae8-f60883fd62c4","Step":{"StepType":1,"LogType":0,"Text":"sukkel","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":0,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":709.0,"y":721.0},"IsCollapsed":false},{"Id":"387e9dfa-80f5-4422-8b7e-cd2e1766a769","Step":{"StepType":1,"LogType":0,"Text":"","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":true,"WaitForCommand":false,"CommandType":2,"PresentButtons":true,"Buttons":[{"Id":"97e4420f-3c5e-4e54-8cf4-e98ed5639592","Label":"oh nee toch niet","TargetNodeId":"5ce5765c-83ca-4c9c-8612-764d193e0d07"}],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":1218.0,"y":103.0},"IsCollapsed":false},{"Id":"5ce5765c-83ca-4c9c-8612-764d193e0d07","Step":{"StepType":1,"LogType":1,"Text":"Pffrt, amateur!","Delay":0.0,"CharacterDelay":0.05000000074505806,"ClearBefore":false,"RequiresUserInput":false,"WaitForCommand":false,"CommandType":2,"PresentButtons":false,"Buttons":[],"SelectedButtonIndex":-1},"NextNodeIds":[],"Position":{"x":1612.0,"y":136.0},"IsCollapsed":false}],"EntryNodeId":"7ad0cdbd-f9fd-4b74-98a8-91da7ccb5d8c"}
+{
+  "Nodes": [
+    {
+      "Id": "08b35c81-48a5-44a3-a6ff-d72cf1efb0be",
+      "Step": {
+        "Lines": [
+          {
+            "DisplayType": 0,
+            "LogType": 1,
+            "Text": "aaaaa",
+            "DelayConfig": {
+              "DelayBefore": 0.0,
+              "CharacterDelay": 0.05
+            }
+          }
+        ],
+        "StepType": 0
+      },
+      "NextNodeId": "5479b6f0-78b1-451a-93c4-e82345f7add6",
+      "PositionX": -474.0,
+      "PositionY": 200.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "5479b6f0-78b1-451a-93c4-e82345f7add6",
+      "Step": {
+        "Buttons": [
+          {
+            "Id": "8954aa62-c03d-49ab-93c6-8ba4a1bc5224",
+            "Label": "Option 0",
+            "TargetNodeId": "07b3a22d-eea4-4ddf-b3e6-87b0a189968b"
+          },
+          {
+            "Id": "01efbe21-e7da-4c27-a6a4-13d0b82cc54c",
+            "Label": "Option 1",
+            "TargetNodeId": "4f42e8a5-bd63-4805-95c0-f4880b62f02f"
+          },
+          {
+            "Id": "b72177d9-e8a9-4db4-a5f3-7ede98964d36",
+            "Label": "Option 2",
+            "TargetNodeId": "0e04bed3-13a3-4e37-8a15-5348977c76db"
+          }
+        ],
+        "StepType": 2
+      },
+      "NextNodeId": null,
+      "PositionX": 369.0,
+      "PositionY": 300.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "86bd4c41-789e-4327-86ad-b908b2954b08",
+      "Step": {
+        "CommandType": 1,
+        "StepType": 3
+      },
+      "NextNodeId": null,
+      "PositionX": 540.0,
+      "PositionY": 142.0,
+      "Width": 1752.0,
+      "Height": 154.0
+    },
+    {
+      "Id": "0e04bed3-13a3-4e37-8a15-5348977c76db",
+      "Step": {
+        "CommandType": 1,
+        "StepType": 3
+      },
+      "NextNodeId": "bce26b7c-07d1-4338-947c-487013cb4ace",
+      "PositionX": 617.0,
+      "PositionY": 769.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "bce26b7c-07d1-4338-947c-487013cb4ace",
+      "Step": {
+        "Buttons": [
+          {
+            "Id": "4cda6d6a-9291-423a-abe8-af131a0da2e5",
+            "Label": "mooi",
+            "TargetNodeId": null
+          }
+        ],
+        "StepType": 2
+      },
+      "NextNodeId": null,
+      "PositionX": 952.0,
+      "PositionY": 826.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "4f42e8a5-bd63-4805-95c0-f4880b62f02f",
+      "Step": {
+        "CommandType": 2,
+        "StepType": 3
+      },
+      "NextNodeId": "24f5a807-2ad0-436b-8060-15be65fc7fdd",
+      "PositionX": 776.0,
+      "PositionY": 701.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "24f5a807-2ad0-436b-8060-15be65fc7fdd",
+      "Step": {
+        "Buttons": [
+          {
+            "Id": "7e81bd52-5684-4026-9049-a8a83478f1de",
+            "Label": "list",
+            "TargetNodeId": null
+          }
+        ],
+        "StepType": 2
+      },
+      "NextNodeId": null,
+      "PositionX": 1169.0,
+      "PositionY": 666.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "07b3a22d-eea4-4ddf-b3e6-87b0a189968b",
+      "Step": {
+        "CommandType": 3,
+        "StepType": 3
+      },
+      "NextNodeId": "ecfb3579-4088-4120-9fcd-e8b53b4423be",
+      "PositionX": 855.0,
+      "PositionY": 578.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "b987306d-7678-4c7e-a72d-96a06203298b",
+      "Step": {
+        "Buttons": [
+          {
+            "Id": "f0e7d82a-3cb3-49b5-81d0-0a7e591a8354",
+            "Label": "klier",
+            "TargetNodeId": null
+          }
+        ],
+        "StepType": 2
+      },
+      "NextNodeId": null,
+      "PositionX": 1201.0,
+      "PositionY": 508.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    },
+    {
+      "Id": "ecfb3579-4088-4120-9fcd-e8b53b4423be",
+      "Step": {
+        "Lines": [
+          {
+            "DisplayType": 0,
+            "LogType": 1,
+            "Text": "verteeteteeteet",
+            "DelayConfig": {
+              "DelayBefore": 0.0,
+              "CharacterDelay": 0.05
+            }
+          }
+        ],
+        "StepType": 0
+      },
+      "NextNodeId": null,
+      "PositionX": 1155.0,
+      "PositionY": 451.0,
+      "Width": 1554.0,
+      "Height": 0.0
+    }
+  ],
+  "EntryNodeId": "08b35c81-48a5-44a3-a6ff-d72cf1efb0be"
+}

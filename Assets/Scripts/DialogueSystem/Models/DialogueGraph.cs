@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public class DialogueGraph
 {
@@ -9,20 +10,11 @@ public class DialogueGraph
 
     public DialogueNode GetPreviousStep(DialogueNode node)
     {
-        foreach (var n in Nodes)
-        {
-            if (n.NextNodeId == node.Id)
-                return n;
-            if (n.Step is ButtonStep bs)
-            {
-                foreach (var btn in bs.Buttons)
-                {
-                    if (btn.TargetNodeId == node.Id)
-                        return n;
-                }
-            }
-        }
+        var prev = Nodes.Find(n => n.NextNodeId == node.Id);
+        if (prev != null) return prev;
 
-        return null;
+        return Nodes.Find(n =>
+            n.Step is ButtonStep bs && bs.Buttons.Any(b => b.TargetNodeId == node.Id)
+        );
     }
 }

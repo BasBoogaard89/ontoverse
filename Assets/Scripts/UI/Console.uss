@@ -24,6 +24,3 @@
     flex-grow: 1;
     flex-shrink: 2;
 }
-
-ScrollView #unity-content-container {
-}

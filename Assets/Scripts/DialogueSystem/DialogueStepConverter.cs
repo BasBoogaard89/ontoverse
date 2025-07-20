@@ -16,17 +16,10 @@ public class DialogueStepConverter : JsonConverter
 
         var stepType = (EStepType)enumObj;
 
-        BaseStep step = stepType switch
-        {
-            EStepType.Wait => new WaitStep(),
-            EStepType.Type => new TypeStep(EDisplayType.Type),
-            EStepType.Button => new ButtonStep(),
-            EStepType.Command => new CommandStep(),
-            EStepType.Action => new ActionStep(),
-            _ => throw new JsonSerializationException($"Unknown StepType: {stepType}")
-        };
+        var step = StepFactory.Step[stepType]();
 
         serializer.Populate(jo.CreateReader(), step);
+
         return step;
     }
 

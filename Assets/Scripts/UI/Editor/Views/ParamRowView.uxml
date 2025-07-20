@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement>
-        <ui:EnumField label="Action" name="ActionType" type="EActionType, Assembly-CSharp" />
-        <ui:Button name="add-param-button" text="Add Parameter"/>
-        <ui:VisualElement name="params-list"/>
+    <ui:VisualElement xmlns:ui="UnityEngine.UIElements" class="param-row">
+        <ui:TextField name="key-field" />
+        <ui:TextField name="value-field" />
+        <ui:Button name="remove-button" text="X"/>
     </ui:VisualElement>
 </ui:UXML>

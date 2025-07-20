@@ -10,17 +10,19 @@ public class ConsoleController : MonoBehaviour
     public TextAsset DefaultDialogueJson;
     public bool EnableDelays = true;
 
-    ConsoleTyper typer;
-    ConsoleInputManager inputManager;
-    ConsoleButtonManager buttonManager;
-    DialogueFlowController flowController;
+    private ConsoleTyper typer;
+    private ConsoleInputManager inputManager;
+    private ConsoleButtonManager buttonManager;
+    private DialogueFlowController flowController;
+
+    private DialogueNode lastNode;
+    private string lastButtonLabel;
 
     void Start()
     {
         InitializeComponents();
         BindEvents();
         InitializeDialogueFlow();
-
         flowController.StartFlow();
     }
 
@@ -44,30 +46,31 @@ public class ConsoleController : MonoBehaviour
     {
         DialogueGraph graph = JsonCompressor.Deserialize<DialogueGraph>(DefaultDialogueJson.text);
         flowController = new DialogueFlowController(graph, this, EnableDelays);
-
         flowController.OnStepOutput += HandleStepOutput;
-        flowController.OnButtonsPresented += HandleButtonsPresented;
-        flowController.OnCommandRequired += HandleCommandRequired;
-
-        _ = new ActionStepHandler(flowController);
     }
 
     void HandleStepOutput(BaseStep step)
     {
-        if (step is TypeStep ts)
-            typer.PrintLine(ts);
-    }
+        switch (step)
+        {
+            case TypeStep ts:
+                typer.PrintLine(ts);
+                break;
 
-    void HandleButtonsPresented(List<ButtonData> buttons)
-    {
-        buttonManager.ShowButtons(buttons);
-        typer.ScrollToBottom();
-    }
+            case ButtonStep bs:
+                buttonManager.ShowButtons(bs.Buttons);
+                typer.ScrollToBottom();
+                break;
 
-    void HandleCommandRequired()
-    {
-        inputManager.ShowInput();
-        typer.ScrollToBottom();
+            case CommandStep cs:
+                inputManager.ShowInput();
+                typer.ScrollToBottom();
+                break;
+
+            default:
+                Debug.LogWarning("Unknown step type");
+                break;
+        }
     }
 
     void NotifyStepFinished()
@@ -79,12 +82,52 @@ public class ConsoleController : MonoBehaviour
     {
         typer.PrintUserLine(cmd);
 
-        flowController.SubmitCommand(cmd);
+        bool success = flowController.SubmitCommand(cmd);
+
+        if (!success)
+        {
+            var prev = flowController.GetPreviousNode();
+            if (prev?.Step is TypeStep type)
+            {
+                typer.PrintLine(type);
+            } else if (prev?.Step is ButtonStep && !string.IsNullOrEmpty(lastButtonLabel))
+            {
+                typer.PrintLine(new TypeStep
+                {
+                    Lines = new List<TypeLine>
+                    {
+                        new TypeLine
+                        {
+                            Text = lastButtonLabel,
+                            DisplayType = EDisplayType.UserInput,
+                            LogType = ELogType.User,
+                            DelayConfig = new StepDelayConfig { CharacterDelay = 0.05f }
+                        }
+                    }
+                });
+            }
+        }
     }
 
     void HandleButtonSelected(int index, string label)
     {
+        lastButtonLabel = label;
+        lastNode = flowController.CurrentNode;
+
         typer.PrintUserLine(label);
         flowController.SelectButton(index);
+    }
+
+    public void LoadGraphByName(string name)
+    {
+        var asset = Resources.Load<TextAsset>($"Dialogue/{name}");
+        if (asset == null)
+        {
+            Debug.LogError($"Dialogue graph '{name}' niet gevonden in Resources/DialogueGraphs!");
+            return;
+        }
+
+        var graph = JsonCompressor.Deserialize<DialogueGraph>(asset.text);
+        flowController.LoadGraph(graph);
     }
 }

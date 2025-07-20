@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine.UIElements;
 
 public class ButtonStepForm
@@ -15,7 +14,7 @@ public class ButtonStepForm
         buttonsList = root.Q<VisualElement>("buttonsList");
         addButton = root.Q<Button>("addButton");
 
-        rowTemplateAsset = AssetHelper.LoadAsset<VisualTreeAsset>("/Views/ButtonView.uxml");
+        rowTemplateAsset = AssetHelper.LoadEditorAsset<VisualTreeAsset>("/Views/ButtonView.uxml");
     }
 
     public void Setup(ButtonStep step, Action<int> onLink, Action<int> onRemove)

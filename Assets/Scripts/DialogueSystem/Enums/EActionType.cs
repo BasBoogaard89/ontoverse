@@ -1,4 +1,5 @@
 public enum EActionType
 {
-    CheckIsPlayerFirstTimePlaying
+    CheckHideIntro,
+    LoadGraph,
 }

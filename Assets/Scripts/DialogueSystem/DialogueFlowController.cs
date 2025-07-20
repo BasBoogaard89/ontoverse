@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DialogueFlowController
 {
     public DialogueNode CurrentNode { get; private set; }
-    private readonly DialogueGraph graph;
+    public DialogueGraph Graph { get; private set; }
+
     private readonly MonoBehaviour coroutineRunner;
     private readonly bool enableDelays;
 
@@ -15,17 +16,26 @@ public class DialogueFlowController
     private CommandStep retryStep;
 
     public event Action<BaseStep> OnStepOutput;
-    public event Action<List<ButtonData>> OnButtonsPresented;
-    public event Action OnCommandRequired;
     public event Action<ActionStep> OnActionRequested;
     public event Action OnFlowEnded;
 
     public DialogueFlowController(DialogueGraph loadedGraph, MonoBehaviour coroutineHost, bool enableDelays)
     {
-        graph = loadedGraph ?? throw new ArgumentNullException(nameof(loadedGraph));
-        CurrentNode = graph.GetNodeById(graph.EntryNodeId);
         coroutineRunner = coroutineHost ?? throw new ArgumentNullException(nameof(coroutineHost));
         this.enableDelays = enableDelays;
+        LoadGraph(loadedGraph);
+    }
+
+    public void LoadGraph(DialogueGraph newGraph)
+    {
+        Graph = newGraph;
+        CurrentNode = Graph.GetNodeById(Graph.EntryNodeId);
+
+        waitingForStepToComplete = false;
+        isRetrying = false;
+        retryStep = null;
+
+        StartFlow();
     }
 
     public void StartFlow()
@@ -48,42 +58,26 @@ public class DialogueFlowController
 
         switch (step)
         {
-            case WaitStep ws:
-                coroutineRunner.StartCoroutine(WaitAndContinue(ws.DelayConfig.DelayBefore));
+            case WaitStep waitStep:
+                coroutineRunner.StartCoroutine(WaitAndContinue(waitStep.DelayConfig.DelayBefore));
                 break;
 
-            case TypeStep ts:
+            case TypeStep:
+            case ButtonStep:
+            case CommandStep:
                 waitingForStepToComplete = true;
-                coroutineRunner.StartCoroutine(HandleTypeStep(ts));
+                OnStepOutput?.Invoke(step);
                 break;
 
-            case ButtonStep bs:
-                OnStepOutput?.Invoke(bs);
-                OnButtonsPresented?.Invoke(bs.Buttons);
-                break;
-
-            case CommandStep cs:
+            case ActionStep actionStep:
                 waitingForStepToComplete = true;
-                OnStepOutput?.Invoke(cs);
-                OnCommandRequired?.Invoke();
-                break;
-
-            case ActionStep a:
-                OnActionRequested?.Invoke(a);
+                OnActionRequested?.Invoke(actionStep);
                 break;
 
             default:
                 OnFlowEnded?.Invoke();
                 break;
         }
-    }
-
-    private IEnumerator HandleTypeStep(TypeStep step)
-    {
-        if (enableDelays && step.DelayConfig.DelayBefore > 0f)
-            yield return new WaitForSeconds(step.DelayConfig.DelayBefore);
-
-        OnStepOutput?.Invoke(step);
     }
 
     public void NotifyStepFinished()
@@ -100,46 +94,33 @@ public class DialogueFlowController
             {
                 waitingForStepToComplete = true;
                 OnStepOutput?.Invoke(retryStep);
-                OnCommandRequired?.Invoke();
             }
             return;
         }
 
-        if (CurrentNode.Step is TypeStep ts && enableDelays && ts.DelayConfig.DelayAfter > 0f)
-        {
-            coroutineRunner.StartCoroutine(WaitAndContinue(ts.DelayConfig.DelayAfter));
+        if (CurrentNode.Step is CommandStep)
             return;
-        }
 
         Continue();
     }
 
-    public void SubmitCommand(string cmd)
+    public bool SubmitCommand(string cmd)
     {
-        if (CurrentNode.Step is CommandStep cs)
+        if (CurrentNode.Step is not CommandStep cs)
+            return false;
+
+        var validator = new CommandValidator();
+        if (validator.Validate(cmd, cs))
         {
-            var validator = new CommandValidator();
-            if (validator.Validate(cmd, cs))
-            {
-                waitingForStepToComplete = false;
-                Continue();
-            } else
-            {
-                var prevNode = graph.GetPreviousStep(CurrentNode);
-                if (prevNode?.Step is TypeStep context)
-                {
-                    retryStep = cs;
-                    isRetrying = true;
-                    waitingForStepToComplete = true;
-                    coroutineRunner.StartCoroutine(HandleTypeStep(context));
-                } else
-                {
-                    waitingForStepToComplete = true;
-                    OnStepOutput?.Invoke(cs);
-                    OnCommandRequired?.Invoke();
-                }
-            }
+            waitingForStepToComplete = false;
+            Continue();
+            return true;
         }
+
+        retryStep = cs;
+        isRetrying = true;
+        waitingForStepToComplete = true;
+        return false;
     }
 
     public void SelectButton(int index)
@@ -149,7 +130,7 @@ public class DialogueFlowController
             var target = bs.Buttons[index].TargetNodeId;
             if (!string.IsNullOrEmpty(target))
             {
-                CurrentNode = graph.GetNodeById(target);
+                CurrentNode = Graph.GetNodeById(target);
                 ExecuteCurrentStep();
             }
         }
@@ -159,10 +140,31 @@ public class DialogueFlowController
     {
         if (!string.IsNullOrEmpty(CurrentNode.NextNodeId))
         {
-            CurrentNode = graph.GetNodeById(CurrentNode.NextNodeId);
+            CurrentNode = Graph.GetNodeById(CurrentNode.NextNodeId);
             ExecuteCurrentStep();
         } else
+        {
             OnFlowEnded?.Invoke();
+        }
+    }
+
+    public void HandleAction(ActionStep step, bool result)
+    {
+        waitingForStepToComplete = false;
+
+        if (!string.IsNullOrEmpty(step.NextNodeIdTrue) && !string.IsNullOrEmpty(step.NextNodeIdFalse))
+        {
+            CurrentNode = Graph.GetNodeById(result ? step.NextNodeIdTrue : step.NextNodeIdFalse);
+        } else if (!string.IsNullOrEmpty(CurrentNode.NextNodeId))
+        {
+            CurrentNode = Graph.GetNodeById(CurrentNode.NextNodeId);
+        } else
+        {
+            OnFlowEnded?.Invoke();
+            return;
+        }
+
+        ExecuteCurrentStep();
     }
 
     private IEnumerator WaitAndContinue(float delay)
@@ -171,5 +173,10 @@ public class DialogueFlowController
             yield return new WaitForSeconds(delay);
 
         Continue();
+    }
+
+    public DialogueNode GetPreviousNode()
+    {
+        return Graph.GetPreviousStep(CurrentNode);
     }
 }

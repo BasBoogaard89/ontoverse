@@ -35,13 +35,13 @@ public class DialogueEditor : EditorWindow
     void CreateWindow()
     {
         root = rootVisualElement;
-        VisualTreeAsset visualTreeAsset = AssetHelper.LoadAsset<VisualTreeAsset>("/DialogueEditor.uxml");
+        VisualTreeAsset visualTreeAsset = AssetHelper.LoadEditorAsset<VisualTreeAsset>("/DialogueEditor.uxml");
 
         var uxmlRoot = visualTreeAsset.CloneTree();
 
         root.Add(uxmlRoot);
 
-        var styleSheet = AssetHelper.LoadAsset<StyleSheet>("/DialogueEditor.uss");
+        var styleSheet = AssetHelper.LoadEditorAsset<StyleSheet>("/DialogueEditor.uss");
 
         if (styleSheet != null)
             root.styleSheets.Add(styleSheet);
@@ -53,14 +53,12 @@ public class DialogueEditor : EditorWindow
         dialogueDropdown = root.Q<DropdownField>("dialogueDropdown");
         saveDialogueButton = root.Q<Button>("saveButton");
 
-        // Nodes interaction
         canvas.generateVisualContent += ctx => graphService.DrawConnections(ctx.painter2D);
 
         canvas.RegisterCallback<MouseDownEvent>(evt => graphService.OnMouseDown(evt));
         canvas.RegisterCallback<MouseMoveEvent>(evt => graphService.OnMouseMove(evt));
         canvas.RegisterCallback<MouseUpEvent>(evt => graphService.OnMouseUp(evt));
 
-        // Sidebar controls
         dialogueDropdown.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue != currentDialogueFilename)

@@ -14,5 +14,6 @@
         <ui:Button name="entry-toggle" text="Startnode maken" />
 
         <ui:Button name="delete" text="Delete" />
+        <ui:VisualElement name="resizer" class="node-resizer"/>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,239 +1,88 @@
 {
   "Nodes": [
     {
-      "Id": "4a40be68-1e02-4966-ab67-b4d781ad8a26",
+      "Id": "1848ac1b-731f-4cdc-89e1-cacbe10e8b39",
       "Step": {
-        "DisplayType": 2,
-        "LogType": 3,
-        "Text": "./ontoverse.exe",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 1.0,
-          "CharacterDelay": 0.05,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "60a982f5-9b25-4715-9839-41db8d95506d",
-      "PositionX": -1267.0,
-      "PositionY": 244.0
-    },
-    {
-      "Id": "60a982f5-9b25-4715-9839-41db8d95506d",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 1,
-        "Text": "Booting kernel modules...",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 1.0,
-          "CharacterDelay": 0.0,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "3c754ca8-83e7-458b-8a80-05585db5e3c8",
-      "PositionX": -1057.0,
-      "PositionY": 244.0
-    },
-    {
-      "Id": "3c754ca8-83e7-458b-8a80-05585db5e3c8",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 1,
-        "Text": "Loading assets...",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 0.1,
-          "CharacterDelay": 0.0,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "fb8eb0f4-c3b5-4435-8467-561c665561ad",
-      "PositionX": -843.0,
-      "PositionY": 243.0
-    },
-    {
-      "Id": "fb8eb0f4-c3b5-4435-8467-561c665561ad",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 1,
-        "Text": "Loading data...",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 0.1,
-          "CharacterDelay": 0.0,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "2b557e04-c5b2-4399-888a-befcdc10fc03",
-      "PositionX": -620.0,
-      "PositionY": 243.0
-    },
-    {
-      "Id": "2b557e04-c5b2-4399-888a-befcdc10fc03",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 0,
-        "Text": "\r\n=======================================\r\n<size=8px>\r\n ██████  ███    ██ ████████  ██████  ██    ██ ███████ ██████  ███████ ███████ \r\n██    ██ ████   ██    ██    ██    ██ ██    ██ ██      ██   ██ ██      ██      \r\n██    ██ ██ ██  ██    ██    ██    ██ ██    ██ █████   ██████  ███████ █████   \r\n██    ██ ██  ██ ██    ██    ██    ██  ██  ██  ██      ██   ██      ██ ██      \r\n ██████  ██   ████    ██     ██████    ████   ███████ ██   ██ ███████ ███████ \r\n</size>\r\n=======================================\r\n\r\\t",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 2.0,
-          "CharacterDelay": 0.0,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "26caa895-d21f-43d4-8e71-ef34719804ba",
-      "PositionX": -410.0,
-      "PositionY": 244.0
-    },
-    {
-      "Id": "26caa895-d21f-43d4-8e71-ef34719804ba",
-      "Step": {
-        "DisplayType": 1,
-        "LogType": 3,
-        "Text": "login --user exeistance --pw B1gBitti3sL0ver!",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 2.0,
-          "CharacterDelay": 0.05,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "6ad504b9-24b6-4b08-80db-7b3729066e6b",
-      "PositionX": -193.0,
-      "PositionY": 244.0
-    },
-    {
-      "Id": "6ad504b9-24b6-4b08-80db-7b3729066e6b",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 1,
-        "Text": "Access granted",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 1.0,
-          "CharacterDelay": 0.0,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "f4c034d5-d164-4e08-8165-c3cc672e553d",
-      "PositionX": 20.0,
-      "PositionY": 245.0
-    },
-    {
-      "Id": "f4c034d5-d164-4e08-8165-c3cc672e553d",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 1,
-        "Text": "Loading user profile",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 2.0,
-          "CharacterDelay": 0.0,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "55373af7-3c2d-428d-9820-a8fb84aef904",
-      "PositionX": 230.0,
-      "PositionY": 245.0
-    },
-    {
-      "Id": "84e0742a-6bd1-4c27-9cb7-b6dc27a22b28",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 0,
-        "Text": "danube",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 0.0,
-          "CharacterDelay": 0.05,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
-      "PositionX": 970.0,
-      "PositionY": 256.0
-    },
-    {
-      "Id": "78570f75-4598-4367-8870-420d000e76e9",
-      "Step": {
-        "Buttons": [
+        "Lines": [
           {
-            "Id": "76f380c4-404c-4977-9790-bfb40afe7b0c",
-            "Label": "baby...",
-            "TargetNodeId": "29a0a0a6-f6d3-4523-8667-b714616ed164"
+            "DisplayType": 2,
+            "LogType": 3,
+            "Text": "./ontoverse.exe",
+            "DelayConfig": {
+              "DelayBefore": 1.0,
+              "CharacterDelay": 0.05
+            }
           },
           {
-            "Id": "7dba502b-26ad-40a7-9492-1a55d1648aa2",
-            "Label": "blue...",
-            "TargetNodeId": "84e0742a-6bd1-4c27-9cb7-b6dc27a22b28"
+            "DisplayType": 0,
+            "LogType": 1,
+            "Text": "Booting kernel modules...",
+            "DelayConfig": {
+              "DelayBefore": 1.0,
+              "CharacterDelay": 0.0
+            }
           },
           {
-            "Id": "c19f9870-8c50-4667-8036-b1e3305b48e5",
-            "Label": "red gold and",
-            "TargetNodeId": "b5533423-78d7-4803-abbf-cdf3a64ec1dd"
+            "DisplayType": 0,
+            "LogType": 1,
+            "Text": "Loading assets...",
+            "DelayConfig": {
+              "DelayBefore": 0.1,
+              "CharacterDelay": 0.0
+            }
+          },
+          {
+            "DisplayType": 0,
+            "LogType": 1,
+            "Text": "Loading data...",
+            "DelayConfig": {
+              "DelayBefore": 0.1,
+              "CharacterDelay": 0.0
+            }
+          },
+          {
+            "DisplayType": 0,
+            "LogType": 0,
+            "Text": "\r\n=======================================\r\n<size=8px>\r\n ██████  ███    ██ ████████  ██████  ██    ██ ███████ ██████  ███████ ███████ \r\n██    ██ ████   ██    ██    ██    ██ ██    ██ ██      ██   ██ ██      ██      \r\n██    ██ ██ ██  ██    ██    ██    ██ ██    ██ █████   ██████  ███████ █████   \r\n██    ██ ██  ██ ██    ██    ██    ██  ██  ██  ██      ██   ██      ██ ██      \r\n ██████  ██   ████    ██     ██████    ████   ███████ ██   ██ ███████ ███████ \r\n</size>\r\n=======================================\r\n\\t",
+            "DelayConfig": {
+              "DelayBefore": 2.0,
+              "CharacterDelay": 0.0
+            }
+          },
+          {
+            "DisplayType": 1,
+            "LogType": 3,
+            "Text": "login --user exeistance --pw B1gBitti3sL0ver!",
+            "DelayConfig": {
+              "DelayBefore": 2.0,
+              "CharacterDelay": 0.05
+            }
+          },
+          {
+            "DisplayType": 0,
+            "LogType": 1,
+            "Text": "Access granted",
+            "DelayConfig": {
+              "DelayBefore": 1.0,
+              "CharacterDelay": 0.0
+            }
+          },
+          {
+            "DisplayType": 0,
+            "LogType": 1,
+            "Text": "Loading user profile",
+            "DelayConfig": {
+              "DelayBefore": 3.0,
+              "CharacterDelay": 0.0
+            }
           }
         ],
-        "StepType": 2
+        "StepType": 0
       },
       "NextNodeId": null,
-      "PositionX": 489.0,
-      "PositionY": 259.0
-    },
-    {
-      "Id": "29a0a0a6-f6d3-4523-8667-b714616ed164",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 0,
-        "Text": "shark!",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 0.0,
-          "CharacterDelay": 0.05,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
-      "PositionX": 749.0,
-      "PositionY": -5.0
-    },
-    {
-      "Id": "b5533423-78d7-4803-abbf-cdf3a64ec1dd",
-      "Step": {
-        "DisplayType": 0,
-        "LogType": 0,
-        "Text": "green",
-        "OverrideDefaultDelay": false,
-        "DelayConfig": {
-          "DelayBefore": 0.0,
-          "CharacterDelay": 0.05,
-          "DelayAfter": 0.0
-        },
-        "StepType": 0
-      },
-      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
-      "PositionX": 771.0,
-      "PositionY": 498.0
-    },
-    {
-      "Id": "55373af7-3c2d-428d-9820-a8fb84aef904",
-      "Step": {
-        "CommandType": 1,
-        "StepType": 3
-      },
-      "NextNodeId": "78570f75-4598-4367-8870-420d000e76e9",
-      "PositionX": 458.0,
-      "PositionY": 651.0
+      "PositionX": 179.0,
+      "PositionY": 52.0
     }
   ],
-  "EntryNodeId": "4a40be68-1e02-4966-ab67-b4d781ad8a26"
+  "EntryNodeId": "1848ac1b-731f-4cdc-89e1-cacbe10e8b39"
 }

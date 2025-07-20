@@ -1,15 +1,20 @@
 .node {
     position: absolute;
-    width: 200px;
-    height: 80px;
+    min-width: 200px;
+    min-height: 80px;
     background-color: rgb(51, 51, 64);
     border-width: 1px;
     border-color: white;
     border-radius: 4px;
 }
 
-.node-type {
+.node-type, .node-action {
     height: 300px;
+}
+
+.node-type {
+    width: 800px;
+    height: 800px;
 }
 
 .node-button {
@@ -20,6 +25,7 @@
     border-color: gold;
 }
 
+/* Content */
 .node-title {
     -unity-text-align: center;
     margin-top: 5px;
@@ -59,6 +65,34 @@
     min-width: 75px;
 }
 
+#delete, #entry-toggle {
+    position: absolute;
+    border-width: 0px;
+    bottom: 0px;
+    padding: 3px;
+    font-size: 12px;
+}
+
+#delete {
+    background-color: #550000;
+    right: 50px;
+    color: #fff;
+}
+
+#entry-toggle {
+    left: 0px;
+}
+
+.node-resizer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    cursor: resize-up-left;
+}
+
+/* Specific styling per type */
 TextField {
     max-height: 100px;
     overflow: scroll;
@@ -81,20 +115,44 @@ TextField > .unity-text-input {
     flex-grow: 1;
 }
 
-#delete, #entry-toggle {
-    position: absolute;
-    border-width: 0px;
-    bottom: 0px;
-    padding: 3px;
-    font-size: 12px;
+.param-row {
+    flex-direction: row;
 }
 
-#delete {
-    background-color: #550000;
-    right: 0px;
-    color: #fff;
+.param-row > TextField {
+    flex-grow: 1;
 }
 
-#entry-toggle {
-    left: 0px;
+.typestep-table-header, .typestep-table-row {
+    flex-direction: row;
+    align-items: flex-start;
 }
+
+.typestep-table-row > *, .typestep-table-header > Label {
+    margin: 0px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.typestep-table-header > TextField {
+    max-width: 400px;
+    width:400px;
+}
+
+.col-display, .col-log {
+    width: 100px;
+}
+
+.col-delaybefore, .col-chardelay {
+    width: 60px;
+    min-width: 60px;
+}
+
+.col-actions {
+    width: 30px;
+    min-width: 30px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.col-text { flex-grow: 1; }

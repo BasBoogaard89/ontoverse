@@ -20,16 +20,20 @@ public class NodeView : VisualElement
     private readonly string viewsPath = $"{AssetHelper.EditorUIPath}/Views";
     private string hoverClass = "hover";
 
+    private bool resizing = false;
+    private Vector2 resizeStartMouse;
+    private Vector2 resizeStartSize;
+
     public NodeView(DialogueNode node, Action onPositionChanged)
     {
         Node = node;
-        Node.Step ??= new TypeStep(EDisplayType.Type);
+        Node.Step ??= new TypeStep();
         Node.NextNodeId ??= null;
 
-        var visualTree = AssetHelper.LoadAsset<VisualTreeAsset>("/Views/NodeView.uxml");
+        var visualTree = AssetHelper.LoadEditorAsset<VisualTreeAsset>("/Views/NodeView.uxml");
         visualTree.CloneTree(this);
 
-        styleSheets.Add(AssetHelper.LoadAsset<StyleSheet>("Views/NodeView.uss"));
+        styleSheets.Add(AssetHelper.LoadEditorAsset<StyleSheet>("Views/NodeView.uss"));
 
         SetPosition(Node.Position);
 
@@ -61,6 +65,12 @@ public class NodeView : VisualElement
                 OnSelected?.Invoke(this);
             }
         });
+
+        var resizer = this.Q("resizer");
+        if (resizer != null)
+        {
+            resizer.RegisterCallback<MouseDownEvent>(OnResizeStart);
+        }
 
         LoadForm();
     }
@@ -106,6 +116,14 @@ public class NodeView : VisualElement
                     {
                         OnRemovedButton?.Invoke(this, index);
                     });
+            } else if (step is ActionStep acs)
+            {
+                var actionForm = new ActionStepForm(form);
+                actionForm.Setup(acs);
+            } else if (step is TypeStep ts)
+            {
+                var typeStepForm = new TypeStepForm(form);
+                typeStepForm.Setup(ts);
             }
         }
     }
@@ -149,5 +167,48 @@ public class NodeView : VisualElement
     {
         Node.PositionX = resolvedStyle.left;
         Node.PositionY = resolvedStyle.top;
+        Node.Width = resolvedStyle.width;
+        Node.Height = resolvedStyle.height;
+    }
+
+    private void OnResizeStart(MouseDownEvent evt)
+    {
+        resizing = true;
+        resizeStartMouse = evt.mousePosition;
+        resizeStartSize = new Vector2(resolvedStyle.width, resolvedStyle.height);
+
+        this.CaptureMouse();
+        RegisterCallback<MouseMoveEvent>(OnResize);
+        RegisterCallback<MouseUpEvent>(OnResizeEnd);
+
+        evt.StopPropagation();
+    }
+
+    private void OnResize(MouseMoveEvent evt)
+    {
+        if (!resizing) return;
+
+        var delta = evt.mousePosition - resizeStartMouse;
+        float newWidth = resizeStartSize.x + delta.x;
+        float newHeight = resizeStartSize.y + delta.y;
+
+        style.width = newWidth;
+        style.height = newHeight;
+
+        Node.Width = newWidth;
+        Node.Height = newHeight;
+
+        evt.StopPropagation();
+        MarkDirtyRepaint();
+    }
+
+    private void OnResizeEnd(MouseUpEvent evt)
+    {
+        resizing = false;
+        this.ReleaseMouse();
+        UnregisterCallback<MouseMoveEvent>(OnResize);
+        UnregisterCallback<MouseUpEvent>(OnResizeEnd);
+
+        evt.StopPropagation();
     }
 }

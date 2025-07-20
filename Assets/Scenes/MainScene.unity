@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2464368cec39dd4190ecd04a100f3dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultDialogueJson: {fileID: 4900000, guid: 0285571766fd1dd4a8ca5ade9836f1db, type: 3}
+  DefaultDialogueJson: {fileID: 4900000, guid: 9754170150fcb1d45bce44699a5f6269, type: 3}
   EnableDelays: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

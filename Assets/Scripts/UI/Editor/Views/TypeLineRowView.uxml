@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement xmlns:ui="UnityEngine.UIElements" class="typestep-table-row" style="flex-direction: row;">
+        <ui:EnumField class="col-display" name="DisplayType" type="EDisplayType, Assembly-CSharp"/>
+        <ui:EnumField class="col-log" name="LogType" type="ELogType, Assembly-CSharp"/>
+        <ui:FloatField class="col-delaybefore" name="DelayConfig.DelayBefore" />
+        <ui:FloatField class="col-chardelay" name="DelayConfig.CharacterDelay" />
+        <ui:TextField class="col-text" name="Text" multiline="true" />
+        <ui:Button class="col-actions" name="removeButton" text="X" />
+    </ui:VisualElement>
+</ui:UXML>

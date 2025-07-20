@@ -9,6 +9,8 @@ public class DialogueNode
     public string NextNodeId;
     public float PositionX;
     public float PositionY;
+    public float Width;
+    public float Height;
 
     [JsonIgnore]
     public Vector2 Position => new(PositionX, PositionY);

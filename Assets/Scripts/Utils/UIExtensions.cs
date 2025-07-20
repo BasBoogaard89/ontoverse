@@ -18,13 +18,13 @@ public static class UIExtensions
         return Regex.Replace(input, "<.*?>", string.Empty);
     }
 
-    public static string GetDialogueStepTerminalPrefix(TypeStep step)
+    public static string GetDialogueStepTerminalPrefix(ELogType logType)
     {
-        var prefix = step.LogType switch
+        var prefix = logType switch
         {
             ELogType.System => "[SYSTEM]",
             ELogType.Input => "[INPUT]",
-            _ => ""
+            _ => string.Empty
         };
 
         return string.IsNullOrEmpty(prefix) ? prefix : prefix.PadRight(8);
