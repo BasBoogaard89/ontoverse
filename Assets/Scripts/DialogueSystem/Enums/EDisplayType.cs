@@ -1,6 +1,9 @@
-public enum EDisplayType
+namespace Ontoverse.DialogueSystem
 {
-    Type,
-    UserInput,
-    Prompt
+    public enum EDisplayType
+    {
+        Type,
+        UserInput,
+        Prompt
+    }
 }

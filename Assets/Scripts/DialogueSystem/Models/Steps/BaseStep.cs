@@ -1,4 +1,7 @@
-public abstract class BaseStep
+namespace Ontoverse.DialogueSystem
 {
-    public abstract EStepType StepType { get; }
+    public abstract class BaseStep
+    {
+        public abstract EStepType StepType { get; }
+    }
 }

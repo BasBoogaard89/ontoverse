@@ -2,26 +2,29 @@
 using System;
 using UnityEngine;
 
-public class DialogueNode
+namespace Ontoverse.DialogueSystem
 {
-    public string Id;
-    public BaseStep Step;
-    public string NextNodeId;
-    public float PositionX;
-    public float PositionY;
-    public float Width;
-    public float Height;
-
-    [JsonIgnore]
-    public Vector2 Position => new(PositionX, PositionY);
-
-    public DialogueNode()
+    public class DialogueNode
     {
-        Id = Guid.NewGuid().ToString();
-    }
+        public string Id;
+        public BaseStep Step;
+        public string NextNodeId;
+        public float PositionX;
+        public float PositionY;
+        public float Width;
+        public float Height;
 
-    public DialogueNode(string id)
-    {
-        Id = id;
+        [JsonIgnore]
+        public Vector2 Position => new(PositionX, PositionY);
+
+        public DialogueNode()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
+        public DialogueNode(string id)
+        {
+            Id = id;
+        }
     }
 }

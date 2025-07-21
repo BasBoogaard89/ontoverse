@@ -1,57 +1,61 @@
-﻿using System;
+﻿using Ontoverse.DialogueSystem;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ConsoleButtonManager : MonoBehaviour
+namespace Ontoverse.Console
 {
-    [SerializeField] VisualTreeAsset buttonTemplate;
-
-    VisualElement buttonElement;
-    VisualElement buttonContainer;
-    VisualElement scrollContent;
-
-    public event Action<int, string> OnButtonSelected;
-
-    void Awake()
+    public class ConsoleButtonManager : MonoBehaviour
     {
-        scrollContent = GetComponent<UIDocument>().rootVisualElement.Q("unity-content-container");
+        [SerializeField] VisualTreeAsset buttonTemplate;
 
-        buttonElement = buttonTemplate.Instantiate();
-        buttonContainer = buttonElement.Q<VisualElement>("button-container");
-    }
+        VisualElement buttonElement;
+        VisualElement buttonContainer;
+        VisualElement scrollContent;
 
-    public void ShowButtons(List<ButtonData> buttons)
-    {
-        if (buttonElement.parent != null)
-            buttonElement.RemoveFromHierarchy();
+        public event Action<int, string> OnButtonSelected;
 
-        buttonContainer.Clear();
-        scrollContent.Add(buttonElement);
-
-        for (int i = 0; i < buttons.Count; i++)
+        void Awake()
         {
-            int index = i;
-            var data = buttons[i];
+            scrollContent = GetComponent<UIDocument>().rootVisualElement.Q("unity-content-container");
 
-            var btn = new Button(() => OnButtonClick(index, data.Label))
-            {
-                text = data.Label
-            };
-
-            buttonContainer.Add(btn);
+            buttonElement = buttonTemplate.Instantiate();
+            buttonContainer = buttonElement.Q<VisualElement>("button-container");
         }
-    }
 
-    void Hide()
-    {
-        if (buttonElement.parent != null)
-            buttonElement.RemoveFromHierarchy();
-    }
+        public void ShowButtons(List<ButtonData> buttons)
+        {
+            if (buttonElement.parent != null)
+                buttonElement.RemoveFromHierarchy();
 
-    void OnButtonClick(int index, string label)
-    {
-        Hide();
-        OnButtonSelected?.Invoke(index, label);
+            buttonContainer.Clear();
+            scrollContent.Add(buttonElement);
+
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                int index = i;
+                var data = buttons[i];
+
+                var btn = new Button(() => OnButtonClick(index, data.Label))
+                {
+                    text = data.Label
+                };
+
+                buttonContainer.Add(btn);
+            }
+        }
+
+        void Hide()
+        {
+            if (buttonElement.parent != null)
+                buttonElement.RemoveFromHierarchy();
+        }
+
+        void OnButtonClick(int index, string label)
+        {
+            Hide();
+            OnButtonSelected?.Invoke(index, label);
+        }
     }
 }

@@ -2,30 +2,33 @@
 using Newtonsoft.Json.Linq;
 using System;
 
-public class DialogueStepConverter : JsonConverter
+namespace Ontoverse.DialogueSystem
 {
-    public override bool CanConvert(Type objectType) => objectType == typeof(BaseStep);
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public class DialogueStepConverter : JsonConverter
     {
-        var jo = JObject.Load(reader);
-        var stepTypeString = jo["StepType"]?.ToString();
+        public override bool CanConvert(Type objectType) => objectType == typeof(BaseStep);
 
-        if (!Enum.TryParse(typeof(EStepType), stepTypeString, out var enumObj))
-            throw new JsonSerializationException($"Unknown StepType: {stepTypeString}");
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var jo = JObject.Load(reader);
+            var stepTypeString = jo["StepType"]?.ToString();
 
-        var stepType = (EStepType)enumObj;
+            if (!Enum.TryParse(typeof(EStepType), stepTypeString, out var enumObj))
+                throw new JsonSerializationException($"Unknown StepType: {stepTypeString}");
 
-        var step = StepFactory.Step[stepType]();
+            var stepType = (EStepType)enumObj;
 
-        serializer.Populate(jo.CreateReader(), step);
+            var step = StepFactory.Step[stepType]();
 
-        return step;
-    }
+            serializer.Populate(jo.CreateReader(), step);
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        JObject jo = JObject.FromObject(value, serializer);
-        jo.WriteTo(writer);
+            return step;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            JObject jo = JObject.FromObject(value, serializer);
+            jo.WriteTo(writer);
+        }
     }
 }

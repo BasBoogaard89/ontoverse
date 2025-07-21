@@ -1,9 +1,12 @@
-public enum ECommandType
+namespace Ontoverse.Console
 {
-    None,
-    Help,
-    List,
-    Clear,
+    public enum ECommandType
+    {
+        None,
+        Help,
+        List,
+        Clear,
 
-    Unknown
+        Unknown
+    }
 }

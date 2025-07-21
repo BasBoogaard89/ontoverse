@@ -1,8 +1,11 @@
-public enum ELogType
+namespace Ontoverse.Console
 {
-    None,
-    System,
-    Input,
-    User,
-    Unknown
+    public enum ELogType
+    {
+        None,
+        System,
+        Input,
+        User,
+        Unknown
+    }
 }

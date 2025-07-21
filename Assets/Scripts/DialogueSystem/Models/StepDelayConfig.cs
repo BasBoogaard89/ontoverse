@@ -1,5 +1,8 @@
-﻿public class StepDelayConfig
+﻿namespace Ontoverse.DialogueSystem
 {
-    public float DelayBefore = 0f;
-    public float CharacterDelay = 0.05f;
+    public class StepDelayConfig
+    {
+        public float DelayBefore = 0f;
+        public float CharacterDelay = 0.05f;
+    }
 }

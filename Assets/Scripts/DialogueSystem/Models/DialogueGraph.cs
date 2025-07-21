@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class DialogueGraph
+namespace Ontoverse.DialogueSystem
 {
-    public List<DialogueNode> Nodes = new();
-    public string EntryNodeId;
-
-    public DialogueNode GetNodeById(string id) => Nodes.Find(n => n.Id == id);
-
-    public DialogueNode GetPreviousStep(DialogueNode node)
+    public class DialogueGraph
     {
-        var prev = Nodes.Find(n => n.NextNodeId == node.Id);
-        if (prev != null) return prev;
+        public List<DialogueNode> Nodes = new();
+        public string EntryNodeId;
 
-        return Nodes.Find(n =>
-            n.Step is ButtonStep bs && bs.Buttons.Any(b => b.TargetNodeId == node.Id)
-        );
+        public DialogueNode GetNodeById(string id) => Nodes.Find(n => n.Id == id);
+
+        public DialogueNode GetPreviousStep(DialogueNode node)
+        {
+            var prev = Nodes.Find(n => n.NextNodeId == node.Id);
+            if (prev != null) return prev;
+
+            return Nodes.Find(n =>
+                n.Step is ButtonStep bs && bs.Buttons.Any(b => b.TargetNodeId == node.Id)
+            );
+        }
     }
 }

@@ -1,5 +1,8 @@
-public class WaitStep : BaseStep
+namespace Ontoverse.DialogueSystem
 {
-    public override EStepType StepType => EStepType.Wait;
-    public StepDelayConfig DelayConfig = new();
+    public class WaitStep : BaseStep
+    {
+        public override EStepType StepType => EStepType.Wait;
+        public StepDelayConfig DelayConfig = new();
+    }
 }

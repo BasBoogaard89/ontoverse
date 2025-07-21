@@ -3,217 +3,220 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ConsoleInputManager : MonoBehaviour
+namespace Ontoverse.Console
 {
-    [SerializeField] VisualTreeAsset inputTemplate;
-    List<string> baseSuggestions = new() { "help", "clear", "run", "exit" };
-
-    VisualElement inputElement;
-    TextField inputField;
-    VisualElement autocompleteList;
-    Button runButton;
-    VisualElement scrollContent;
-
-    bool autocompleteEnabled = false;
-    List<string> suggestions;
-    List<Label> suggestionItems = new();
-    int selectedIndex = -1;
-    int maxVisibleSuggestions = 5;
-
-    public event Action<string> OnCommandSubmitted;
-
-    void Awake()
+    public class ConsoleInputManager : MonoBehaviour
     {
-        scrollContent = GetComponent<UIDocument>().rootVisualElement.Q("unity-content-container");
-        suggestions = new List<string>(baseSuggestions);
-        suggestions.Sort(StringComparer.OrdinalIgnoreCase);
+        [SerializeField] VisualTreeAsset inputTemplate;
+        List<string> baseSuggestions = new() { "help", "clear", "run", "exit" };
 
-        InitUI();
-    }
+        VisualElement inputElement;
+        TextField inputField;
+        VisualElement autocompleteList;
+        Button runButton;
+        VisualElement scrollContent;
 
-    void InitUI()
-    {
-        inputElement = inputTemplate.Instantiate();
-        inputField = inputElement.Q<TextField>("command-input");
-        autocompleteList = inputElement.Q<VisualElement>("autocomplete-list");
-        runButton = inputElement.Q<Button>("run-button");
+        bool autocompleteEnabled = false;
+        List<string> suggestions;
+        List<Label> suggestionItems = new();
+        int selectedIndex = -1;
+        int maxVisibleSuggestions = 5;
 
-        inputField.RegisterCallback<FocusInEvent>(OnFocus);
-        inputField.RegisterValueChangedCallback(OnInputChanged);
-        inputField.RegisterCallback<KeyDownEvent>(OnKeyDown);
-        inputField.RegisterCallback<FocusOutEvent>(_ =>
+        public event Action<string> OnCommandSubmitted;
+
+        void Awake()
         {
-            inputField.schedule.Execute(HideSuggestions).ExecuteLater(100);
-        });
+            scrollContent = GetComponent<UIDocument>().rootVisualElement.Q("unity-content-container");
+            suggestions = new List<string>(baseSuggestions);
+            suggestions.Sort(StringComparer.OrdinalIgnoreCase);
 
-        runButton.clicked += () => RunCommand(inputField.value);
+            InitUI();
+        }
 
-        SetSuggestions(baseSuggestions);
-        HideSuggestions();
-    }
-
-    public void ShowInput()
-    {
-        if (inputElement.parent != null)
-            inputElement.RemoveFromHierarchy();
-
-        scrollContent.Add(inputElement);
-    }
-
-    void SetSuggestions(List<string> newSuggestions)
-    {
-        suggestions = new List<string>(newSuggestions);
-        suggestions.Sort(StringComparer.OrdinalIgnoreCase);
-    }
-
-    void OnFocus(FocusInEvent evt)
-    {
-        inputField.schedule.Execute(() =>
+        void InitUI()
         {
-            inputField.SelectRange(inputField.value.Length, inputField.value.Length);
-        }).ExecuteLater(100);
-        evt.StopPropagation();
-    }
+            inputElement = inputTemplate.Instantiate();
+            inputField = inputElement.Q<TextField>("command-input");
+            autocompleteList = inputElement.Q<VisualElement>("autocomplete-list");
+            runButton = inputElement.Q<Button>("run-button");
 
-    void OnInputChanged(ChangeEvent<string> evt)
-    {
-        string input = evt.newValue;
+            inputField.RegisterCallback<FocusInEvent>(OnFocus);
+            inputField.RegisterValueChangedCallback(OnInputChanged);
+            inputField.RegisterCallback<KeyDownEvent>(OnKeyDown);
+            inputField.RegisterCallback<FocusOutEvent>(_ =>
+            {
+                inputField.schedule.Execute(HideSuggestions).ExecuteLater(100);
+            });
 
-        if (!autocompleteEnabled || string.IsNullOrWhiteSpace(input))
-        {
+            runButton.clicked += () => RunCommand(inputField.value);
+
+            SetSuggestions(baseSuggestions);
             HideSuggestions();
-            return;
         }
 
-        var matches = suggestions.FindAll(s => s.StartsWith(input, StringComparison.OrdinalIgnoreCase));
-        if (matches.Count == 0)
+        public void ShowInput()
         {
-            HideSuggestions();
-            return;
+            if (inputElement.parent != null)
+                inputElement.RemoveFromHierarchy();
+
+            scrollContent.Add(inputElement);
         }
 
-        ShowSuggestions(matches);
-    }
-
-    void OnKeyDown(KeyDownEvent evt)
-    {
-        if (evt.keyCode == KeyCode.Backspace || (evt.character != '\0' && !char.IsControl(evt.character)))
-            autocompleteEnabled = true;
-
-        if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
+        void SetSuggestions(List<string> newSuggestions)
         {
-            if (autocompleteList.style.display != DisplayStyle.None &&
-                selectedIndex >= 0 &&
-                selectedIndex < suggestionItems.Count)
+            suggestions = new List<string>(newSuggestions);
+            suggestions.Sort(StringComparer.OrdinalIgnoreCase);
+        }
+
+        void OnFocus(FocusInEvent evt)
+        {
+            inputField.schedule.Execute(() =>
             {
-                evt.StopPropagation();
-                SetInput(suggestionItems[selectedIndex].text);
-            } else
-            {
-                evt.StopPropagation();
-                RunCommand(inputField.value);
-            }
-            return;
-        }
-
-        if (autocompleteList.style.display == DisplayStyle.None)
-            return;
-
-        if (evt.keyCode == KeyCode.DownArrow)
-        {
+                inputField.SelectRange(inputField.value.Length, inputField.value.Length);
+            }).ExecuteLater(100);
             evt.StopPropagation();
-            MoveSelection(1);
-        } else if (evt.keyCode == KeyCode.UpArrow)
-        {
-            evt.StopPropagation();
-            MoveSelection(-1);
         }
-    }
 
-    void SetInput(string text)
-    {
-        inputField.value = text;
-        inputField.Focus();
-        HideSuggestions();
-        autocompleteEnabled = false;
-    }
-
-    void ShowSuggestions(List<string> matches)
-    {
-        autocompleteList.Clear();
-        suggestionItems.Clear();
-        selectedIndex = -1;
-
-        var limitedMatches = matches.Count > maxVisibleSuggestions
-            ? matches.GetRange(0, maxVisibleSuggestions)
-            : matches;
-
-        foreach (var match in limitedMatches)
+        void OnInputChanged(ChangeEvent<string> evt)
         {
-            var item = new Label(match);
-            item.AddToClassList("autocomplete-item");
+            string input = evt.newValue;
 
-            item.RegisterCallback<ClickEvent>(_ =>
+            if (!autocompleteEnabled || string.IsNullOrWhiteSpace(input))
             {
-                SetInput(match);
                 HideSuggestions();
-            });
+                return;
+            }
 
-            item.RegisterCallback<MouseOverEvent>(_ =>
+            var matches = suggestions.FindAll(s => s.StartsWith(input, StringComparison.OrdinalIgnoreCase));
+            if (matches.Count == 0)
             {
-                foreach (var l in suggestionItems)
-                    l.RemoveFromClassList("highlight");
+                HideSuggestions();
+                return;
+            }
 
-                item.AddToClassList("highlight");
-                selectedIndex = suggestionItems.IndexOf(item);
-            });
-
-            autocompleteList.Add(item);
-            suggestionItems.Add(item);
+            ShowSuggestions(matches);
         }
 
-        autocompleteList.style.display = DisplayStyle.Flex;
-    }
+        void OnKeyDown(KeyDownEvent evt)
+        {
+            if (evt.keyCode == KeyCode.Backspace || (evt.character != '\0' && !char.IsControl(evt.character)))
+                autocompleteEnabled = true;
 
-    void HideSuggestions()
-    {
-        autocompleteList.style.display = DisplayStyle.None;
-        selectedIndex = -1;
-    }
+            if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
+            {
+                if (autocompleteList.style.display != DisplayStyle.None &&
+                    selectedIndex >= 0 &&
+                    selectedIndex < suggestionItems.Count)
+                {
+                    evt.StopPropagation();
+                    SetInput(suggestionItems[selectedIndex].text);
+                } else
+                {
+                    evt.StopPropagation();
+                    RunCommand(inputField.value);
+                }
+                return;
+            }
 
-    void MoveSelection(int direction)
-    {
-        if (suggestionItems.Count == 0)
-            return;
+            if (autocompleteList.style.display == DisplayStyle.None)
+                return;
 
-        if (selectedIndex >= 0 && selectedIndex < suggestionItems.Count)
-            suggestionItems[selectedIndex].RemoveFromClassList("highlight");
+            if (evt.keyCode == KeyCode.DownArrow)
+            {
+                evt.StopPropagation();
+                MoveSelection(1);
+            } else if (evt.keyCode == KeyCode.UpArrow)
+            {
+                evt.StopPropagation();
+                MoveSelection(-1);
+            }
+        }
 
-        selectedIndex += direction;
+        void SetInput(string text)
+        {
+            inputField.value = text;
+            inputField.Focus();
+            HideSuggestions();
+            autocompleteEnabled = false;
+        }
 
-        if (selectedIndex < 0)
-            selectedIndex = suggestionItems.Count - 1;
-        else if (selectedIndex >= suggestionItems.Count)
-            selectedIndex = 0;
+        void ShowSuggestions(List<string> matches)
+        {
+            autocompleteList.Clear();
+            suggestionItems.Clear();
+            selectedIndex = -1;
 
-        suggestionItems[selectedIndex].AddToClassList("highlight");
-    }
+            var limitedMatches = matches.Count > maxVisibleSuggestions
+                ? matches.GetRange(0, maxVisibleSuggestions)
+                : matches;
 
-    public void Hide()
-    {
-        if (inputElement?.parent != null)
-            inputElement.RemoveFromHierarchy();
-    }
+            foreach (var match in limitedMatches)
+            {
+                var item = new Label(match);
+                item.AddToClassList("autocomplete-item");
 
-    void RunCommand(string cmd)
-    {
-        if (string.IsNullOrWhiteSpace(cmd) || cmd.Equals("Enter a command..."))
-            return;
+                item.RegisterCallback<ClickEvent>(_ =>
+                {
+                    SetInput(match);
+                    HideSuggestions();
+                });
 
-        Hide();
-        OnCommandSubmitted?.Invoke(cmd);
-        inputField.value = "Enter a command...";
+                item.RegisterCallback<MouseOverEvent>(_ =>
+                {
+                    foreach (var l in suggestionItems)
+                        l.RemoveFromClassList("highlight");
 
-        HideSuggestions();
+                    item.AddToClassList("highlight");
+                    selectedIndex = suggestionItems.IndexOf(item);
+                });
+
+                autocompleteList.Add(item);
+                suggestionItems.Add(item);
+            }
+
+            autocompleteList.style.display = DisplayStyle.Flex;
+        }
+
+        void HideSuggestions()
+        {
+            autocompleteList.style.display = DisplayStyle.None;
+            selectedIndex = -1;
+        }
+
+        void MoveSelection(int direction)
+        {
+            if (suggestionItems.Count == 0)
+                return;
+
+            if (selectedIndex >= 0 && selectedIndex < suggestionItems.Count)
+                suggestionItems[selectedIndex].RemoveFromClassList("highlight");
+
+            selectedIndex += direction;
+
+            if (selectedIndex < 0)
+                selectedIndex = suggestionItems.Count - 1;
+            else if (selectedIndex >= suggestionItems.Count)
+                selectedIndex = 0;
+
+            suggestionItems[selectedIndex].AddToClassList("highlight");
+        }
+
+        public void Hide()
+        {
+            if (inputElement?.parent != null)
+                inputElement.RemoveFromHierarchy();
+        }
+
+        void RunCommand(string cmd)
+        {
+            if (string.IsNullOrWhiteSpace(cmd) || cmd.Equals("Enter a command..."))
+                return;
+
+            Hide();
+            OnCommandSubmitted?.Invoke(cmd);
+            inputField.value = "Enter a command...";
+
+            HideSuggestions();
+        }
     }
 }

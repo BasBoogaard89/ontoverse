@@ -1,5 +1,8 @@
-public enum EActionType
+namespace Ontoverse.DialogueSystem
 {
-    CheckHideIntro,
-    LoadGraph,
+    public enum EActionType
+    {
+        CheckHideIntro,
+        LoadGraph,
+    }
 }

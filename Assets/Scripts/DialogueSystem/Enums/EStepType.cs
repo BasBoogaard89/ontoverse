@@ -1,8 +1,11 @@
-public enum EStepType
+namespace Ontoverse.DialogueSystem
 {
-    Type,
-    Wait,
-    Button,
-    Command,
-    Action,
+    public enum EStepType
+    {
+        Type,
+        Wait,
+        Button,
+        Command,
+        Action,
+    }
 }
